@@ -64,3 +64,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "tailwindcss-rails", "~> 4.4"
+
+gem "foreman", "~> 0.90.0"
+
+gem "hotwire-rails", "~> 0.1.3"

@@ -13,4 +13,13 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   get "/bookmarks", to: "bookmarks#index"
+  get "/bookmarks/new", to: "bookmarks#new"
+  post "/bookmarks/create", to: "bookmarks#create"
+  get "/bookmarks/edit", to: "bookmarks#edit"
+  put "/bookmarks/update", to: "bookmarks#update"
+
+  get "/folders/new", to: "folders#new"
+  post "/folders/create", to: "folders#create"
+  get "/folders/edit", to: "folders#edit"
+  put "/folders/update", to: "folders#update"
 end

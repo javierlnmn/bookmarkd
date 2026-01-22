@@ -1,2 +1,10 @@
+<div class="flex flex-col min-h-dvh gap-4 p-4 max-w-6xl w-11/12 mx-auto">
 <h1>Bookmarks#index</h1>
-<p>Find me in app/views/bookmarks/polla.html.erb</p>
+<div>
+  <% @bookmarks.each do |bookmark| %>
+    <div>
+      <%= render "bookmark", bookmark: bookmark %>
+      </div>
+    <% end %>
+  </div>
+</div>
