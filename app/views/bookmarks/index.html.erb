@@ -1,5 +1,10 @@
 <div class="flex flex-col min-h-dvh gap-4 p-4 max-w-6xl w-11/12 mx-auto">
 <h1>Bookmarks#index</h1>
+
+<%= turbo_frame_tag "new_bookmark" do %>
+  <%= link_to "Add bookmark", bookmarks_new_path %>
+<% end %>
+
 <div>
   <% @bookmarks.each do |bookmark| %>
     <div>

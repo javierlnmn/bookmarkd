@@ -1,0 +1,17 @@
+<%= turbo_frame_tag "new_bookmark" do %>
+<%= form_with model: @bookmark, url: bookmarks_create_path, method: :post do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :url %>
+    <%= form.text_field :url %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+<% end %>
