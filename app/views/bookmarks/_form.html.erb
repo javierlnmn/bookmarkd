@@ -1,5 +1,10 @@
-<%= turbo_frame_tag "new_bookmark" do %>
-<%= form_with model: @bookmark, url: bookmarks_create_path, method: :post do |form| %>
+<%= turbo_frame_tag "new_bookmark", target: "_top" do %>
+<%= form_with(
+    model: @bookmark,
+    url: bookmarks_create_path,
+    method: :post,
+    data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }
+  ) do |form| %>
   <div>
     <%= form.label :name %>
     <%= form.text_field :name %>
