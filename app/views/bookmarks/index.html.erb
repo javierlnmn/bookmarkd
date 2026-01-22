@@ -5,7 +5,7 @@
   <%= link_to "Add bookmark", bookmarks_new_path %>
 <% end %>
 
-<div>
+<div id="bookmarks">
   <% @bookmarks.each do |bookmark| %>
     <div>
       <%= render "bookmark", bookmark: bookmark %>

@@ -10,11 +10,15 @@ class BookmarksController < ApplicationController
   end
 
   def create
-    @bookmark = Bookmark.new(bookmark_params())
+    @bookmark = Bookmark.new(bookmark_params)
+
     if @bookmark.save
-      redirect_to bookmarks_path
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to bookmarks_path }
+      end
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
