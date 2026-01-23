@@ -1,8 +1,24 @@
 <!DOCTYPE html>
 <html>
   <%= render "layouts/head" %>
-  <body class="bg-gradient-to-b from-zinc-800 to-zinc-950 text-white line-seed">
-    <%= turbo_frame_tag 'modal' %>
-    <%= yield %>
+  <body class="bg-zinc-950 text-zinc-100 line-seed min-h-screen selection:bg-orange-500/30">
+    <header class="sticky top-0 z-40 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800">
+      <div class="max-w-6xl w-11/12 mx-auto h-16 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <%= image_tag "/icon.svg", class: "w-8 h-8 drop-shadow-lg drop-shadow-orange-500/20" %>
+          <span class="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-400">Bookmarkd</span>
+        </div>
+        
+        <nav class="flex items-center gap-6">
+          <a href="/" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Dashboard</a>
+          <a href="#" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Folders</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="py-8">
+      <%= turbo_frame_tag 'modal' %>
+      <%= yield %>
+    </main>
   </body>
 </html>
