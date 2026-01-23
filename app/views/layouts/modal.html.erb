@@ -1,0 +1,28 @@
+<html>
+  <%= render "layouts/head" %>
+  <body class="line-seed">
+    <%= turbo_frame_tag 'modal' do %>
+      <%= tag.dialog(
+          class: 'modal hidden open:flex fixed inset-0 z-50 h-full w-full bg-black/60 backdrop-blur-md p-0 border-none items-center justify-center duration-300',
+          open: response.message&.start_with?('Unprocessable'),
+          data: { controller: 'modal' }
+      ) do %>
+        <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl shadow-2xl w-full max-w-md m-4 transform duration-300 scale-100 opacity-100 shadow-orange-500/10">
+          <div class="mb-4">
+            <%= yield :modal_header %>
+          </div>
+
+          <div class="text-zinc-300">
+            <%= yield %>
+          </div>
+
+          <div class="flex justify-end items-center gap-3 mt-8">
+            <%= button_tag 'Cancel', type: 'button', class: 'px-4 py-2 text-zinc-400 hover:text-white transition-colors text-sm font-medium',
+                data: { action: 'modal#close' } %>
+            <%= yield :modal_footer %>
+          </div>  
+        </div>  
+      <% end %>
+    <% end %>
+  </body>
+</html>

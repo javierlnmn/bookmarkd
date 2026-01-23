@@ -6,7 +6,7 @@ class BookmarksController < ApplicationController
 
   def new
     @bookmark = Bookmark.new
-    render "_form"
+    render :new, layout: "modal"
   end
 
   def create
@@ -18,7 +18,7 @@ class BookmarksController < ApplicationController
         format.html { redirect_to bookmarks_path }
       end
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity, layout: "modal"
     end
   end
 

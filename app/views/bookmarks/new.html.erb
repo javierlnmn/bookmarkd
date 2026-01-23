@@ -1,9 +1,8 @@
-<%= turbo_frame_tag "new_bookmark", target: "_top" do %>
 <%= form_with(
     model: @bookmark,
     url: bookmarks_create_path,
     method: :post,
-    data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }
+    data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset turbo:submit-end->modal#close" }
   ) do |form| %>
   <div>
     <%= form.label :name %>
@@ -16,8 +15,6 @@
   </div>
 
   <div>
-    <%= link_to "Cancel", bookmarks_path %>
     <%= form.submit %>
   </div>
-<% end %>
 <% end %>
