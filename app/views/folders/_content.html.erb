@@ -1,0 +1,31 @@
+<div class="flex flex-col gap-4">
+  <div id="folders-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <% if folders.length > 0 %>
+    <% folders.each do |folder| %>
+      <%= render "folders/folder", folder: folder %>
+    <% end %>
+  <% else %>
+    <div id="folders-empty" class="col-span-full">
+      <div class="flex items-center h-full">
+        <p class="text-zinc-500 text-sm font-medium">No folders found</p>
+      </div>
+    </div>
+  <% end %>
+  </div>
+
+  <span class="w-full h-px bg-zinc-800/30"></span>
+
+  <div id="bookmarks-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <% if bookmarks.length > 0 %>
+      <% bookmarks.each do |bookmark| %>
+        <%= render "bookmarks/bookmark", bookmark: bookmark %>
+      <% end %>
+    <% else %>
+      <div id="bookmarks-empty" class="col-span-full">
+        <div class="flex items-center h-full">
+          <p class="text-zinc-500 text-sm font-medium">No bookmarks found</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

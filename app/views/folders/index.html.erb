@@ -1,7 +1,7 @@
 <div class="max-w-6xl w-11/12 mx-auto">
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
     <div>
-      <h1 class="text-3xl font-bold text-white mb-1">My Bookmarks</h1>
+      <h1 class="text-3xl font-bold text-white mb-1">All my bookmarks</h1>
       <p class="text-zinc-500 text-sm font-medium">Organize and access your favorite links</p>
     </div>
 
@@ -32,18 +32,7 @@
   </div>
 
 
-<div class="flex flex-col gap-4">
-  <div id="folders-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    <% @folders.each do |folder| %>
-      <%= render "folder", folder: folder %>
-    <% end %>
-  </div>
-  <span class="w-full h-px bg-zinc-800/30"></span>
-  <div id="bookmarks-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    <% @bookmarks.each do |bookmark| %>
-      <%= render "bookmarks/bookmark", bookmark: bookmark %>
-    <% end %>
-  </div>
+  <%= render "folders/content", folders: @folders, bookmarks: @bookmarks %>
 </div>
 
 </div>
