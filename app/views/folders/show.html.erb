@@ -5,6 +5,8 @@
       <p class="text-zinc-500 text-sm font-medium">Organize and access your favorite links inside the folder</p>
     </div>
 
+    <%= @folder.get_path %>
+
     <div class="flex gap-2 items-center">
       <div data-controller="dropdown" class="relative">
         <button data-action="dropdown#toggle" data-dropdown-target="button" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-zinc-100 hover:bg-white text-zinc-950 font-bold rounded-xl transition-all active:scale-95 shadow-lg shadow-white/5 cursor-pointer">

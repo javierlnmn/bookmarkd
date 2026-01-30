@@ -4,4 +4,12 @@ class Folder < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
 
   validates :name, presence: true
+
+  def get_path
+    if self.parent
+      self.get_path + [ self.name ]
+    else
+      [ self.name ]
+    end
+  end
 end
