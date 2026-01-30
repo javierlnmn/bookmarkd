@@ -1,0 +1,31 @@
+<%= form_with(
+    model: @bookmark,
+    id: 'modal-form',
+    data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset turbo:submit-end->modal#close" },
+    class: "space-y-4"
+  ) do |form| %>
+  <% if form.object.errors.any? %>
+    <p class="error"><%= form.object.errors.full_messages.first %></p>
+  <% end %>
+
+  
+  <div class="space-y-1.5">
+    <%= form.label :name, class: "block text-[10px] font-bold uppercase tracking-widest text-zinc-600 ml-1" %>
+    <%= form.text_field :name, 
+        placeholder: "e.g. Awesome Inspiration",
+        class: "w-full bg-zinc-800/80 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:ring-2 focus:ring-orange-500/10 focus:border-orange-500/40 transition-all" %>
+  </div>
+
+  <div class="space-y-1.5">
+    <%= form.label :url, class: "block text-[10px] font-bold uppercase tracking-widest text-zinc-600 ml-1" %>
+    <%= form.url_field :url, 
+        placeholder: "https://...",
+        class: "w-full bg-zinc-800/80 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:ring-2 focus:ring-orange-500/10 focus:border-orange-500/40 transition-all" %>
+  </div>
+
+  <% content_for :modal_footer do %>
+    <%= form.submit "Save Bookmark",
+      form: 'modal-form',
+      class: "cursor-pointer px-5 py-2 bg-orange-600 hover:bg-orange-500 text-zinc-950 text-sm font-bold rounded-xl transition-all active:scale-95 cursor-pointer shadow-lg shadow-white/5" %>
+  <% end %>
+<% end %>
