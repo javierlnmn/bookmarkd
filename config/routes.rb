@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  root to: redirect("/bookmarks")
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
@@ -12,14 +11,13 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  get "/bookmarks", to: "bookmarks#index"
-  get "/bookmarks/new", to: "bookmarks#new"
-  post "/bookmarks/create", to: "bookmarks#create"
-  get "/bookmarks/edit", to: "bookmarks#edit"
-  put "/bookmarks/update", to: "bookmarks#update"
+  resources :folders do
+    resources :folders, only: [ :new, :create ]
+    resources :bookmarks, only: [ :new, :create ]
+  end
 
-  get "/folders/new", to: "folders#new"
-  post "/folders/create", to: "folders#create"
-  get "/folders/edit", to: "folders#edit"
-  put "/folders/update", to: "folders#update"
+  resources :folders, only: [ :index, :show, :new, :create, :edit, :update, :destroy ]
+  resources :bookmarks, only: [ :new, :create, :edit, :update, :destroy ]
+
+  root to: "folders#index"
 end
