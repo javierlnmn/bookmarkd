@@ -1,6 +1,6 @@
 <%= form_with(
     model: @bookmark,
-    id: 'modal-form',
+    id: 'bookmark-form-modal',
     data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset turbo:submit-end->modal#close" },
     class: "space-y-4"
   ) do |form| %>
@@ -25,7 +25,7 @@
 
   <% content_for :modal_footer do %>
     <%= form.submit "Save Bookmark",
-      form: 'modal-form',
+      form: 'bookmark-form-modal',
       class: "cursor-pointer px-5 py-2 bg-orange-600 hover:bg-orange-500 text-zinc-950 text-sm font-bold rounded-xl transition-all active:scale-95 cursor-pointer shadow-lg shadow-white/5" %>
   <% end %>
 <% end %>
