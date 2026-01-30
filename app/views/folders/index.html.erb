@@ -31,12 +31,19 @@
     </div>
   </div>
 
-  <div id="bookmarks" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+<div class="flex flex-col gap-4">
+  <div id="folders-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     <% @folders.each do |folder| %>
       <%= render "folder", folder: folder %>
     <% end %>
+  </div>
+  <span class="w-full h-px bg-zinc-800/30"></span>
+  <div id="bookmarks-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     <% @bookmarks.each do |bookmark| %>
       <%= render "bookmarks/bookmark", bookmark: bookmark %>
     <% end %>
   </div>
+</div>
+
 </div>
