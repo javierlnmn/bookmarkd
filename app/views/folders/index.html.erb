@@ -5,7 +5,7 @@
       <p class="text-zinc-500 text-sm font-medium">Organize and access your favorite links</p>
     </div>
 
-    <%= link_to bookmarks_new_path, 
+    <%= link_to new_bookmark_path, 
         data: { turbo_frame: 'modal' },
         class: "inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-zinc-100 hover:bg-white text-zinc-950 font-bold rounded-xl transition-all active:scale-95 shadow-lg shadow-white/5" do %>
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
@@ -14,8 +14,11 @@
   </div>
 
   <div id="bookmarks" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <% @folders.each do |folder| %>
+      <%= render "folder", folder: folder %>
+    <% end %>
     <% @bookmarks.each do |bookmark| %>
-      <%= render "bookmark", bookmark: bookmark %>
+      <%= render "bookmarks/bookmark", bookmark: bookmark %>
     <% end %>
   </div>
 </div>
