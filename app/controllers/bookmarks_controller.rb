@@ -2,7 +2,7 @@ class BookmarksController < ApplicationController
   before_action :set_bookmark, only: %i[ edit update destroy ]
 
   def new
-    @bookmark = Bookmark.new
+    @bookmark = Bookmark.new(folder_id: params[:folder_id])
     render :new, layout: "modal"
   end
 
@@ -43,6 +43,6 @@ class BookmarksController < ApplicationController
     end
 
     def bookmark_params
-      params.expect(bookmark: [ :name, :url ])
+      params.expect(bookmark: [ :name, :url, :folder_id ])
     end
 end

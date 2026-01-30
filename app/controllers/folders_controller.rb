@@ -1,13 +1,18 @@
 class FoldersController < ApplicationController
-  before_action :set_folder, only: %i[ edit update destroy ]
+  before_action :set_folder, only: %i[ show edit update destroy ]
 
   def index
     @folders = Folder.all
     @bookmarks = Bookmark.where folder_id: nil
   end
 
+  def show
+    @folders = @folder.children
+    @bookmarks = Bookmark.where folder_id: @folder.id
+  end
+
   def new
-    @folder = Folder.new
+    @folder = Folder.new(parent_id: params[:folder_id])
     render :new, layout: "modal"
   end
 
@@ -48,6 +53,6 @@ class FoldersController < ApplicationController
     end
 
     def folder_params
-      params.expect(folder: [ :name, :url ])
+      params.expect(folder: [ :name, :url, :parent_id ])
     end
 end

@@ -7,7 +7,8 @@
   <% if form.object.errors.any? %>
     <p class="error"><%= form.object.errors.full_messages.first %></p>
   <% end %>
-
+  
+  <%= form.hidden_field :folder_id %>
   
   <div class="space-y-1.5">
     <%= form.label :name, class: "block text-[10px] font-bold uppercase tracking-widest text-zinc-600 ml-1" %>
