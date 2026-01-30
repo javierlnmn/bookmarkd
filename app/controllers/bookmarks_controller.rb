@@ -12,7 +12,7 @@ class BookmarksController < ApplicationController
     if @bookmark.save
       respond_to do |format|
         format.turbo_stream
-        format.html { redirect_to bookmarks_path }
+        format.html { redirect_to folders_path }
       end
     else
       render :new, status: :unprocessable_entity, layout: "modal"
