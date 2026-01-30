@@ -10,7 +10,7 @@ export default class extends Controller {
   }
 
   open() {
-    setTimeout(()=> this.element.show(), 0)
+    this.element.show()
   }
 
   close() {
