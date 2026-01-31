@@ -7,7 +7,7 @@ export default class extends Controller {
     this.listTarget.classList.toggle("hidden");
   }
 
-  hide(event) {
+  hide() {
     this.listTarget.classList.add("hidden");
     this.listTarget.classList.remove("flex");
   }
