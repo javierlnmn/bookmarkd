@@ -2,17 +2,17 @@ class FoldersController < ApplicationController
   before_action :set_folder, only: %i[ show edit update destroy ]
 
   def index
-    @folders = Folder.where parent_id: nil
-    @bookmarks = Bookmark.where folder_id: nil
+    @folders = Current.user.folders.where parent_id: nil
+    @bookmarks = Current.user.bookmarks.where folder_id: nil
   end
 
   def show
-    @folders = @folder.children
-    @bookmarks = Bookmark.where folder_id: @folder.id
+    @folders = Current.user.folders.children
+    @bookmarks = Current.user.bookmarks.where folder_id: @folder.id
   end
 
   def new
-    @folder = Folder.new(parent_id: params[:folder_id])
+    @folder = Current.user.folders.new(parent_id: params[:folder_id])
     render :new, layout: "modal"
   end
 
@@ -49,7 +49,7 @@ class FoldersController < ApplicationController
 
   private
     def set_folder
-      @folder = Folder.find(params[:id])
+      @folder = Current.user.folders.find(params[:id])
     end
 
     def folder_params

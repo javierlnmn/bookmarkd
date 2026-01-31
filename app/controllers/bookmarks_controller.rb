@@ -7,7 +7,7 @@ class BookmarksController < ApplicationController
   end
 
   def create
-    @bookmark = Bookmark.new(bookmark_params)
+    @bookmark = Current.user.bookmarks.new(bookmark_params)
 
     if @bookmark.save
       respond_to do |format|
@@ -39,7 +39,7 @@ class BookmarksController < ApplicationController
 
   private
     def set_bookmark
-      @bookmark = Bookmark.find(params[:id])
+      @bookmark = Current.user.bookmarks.find(params[:id])
     end
 
     def bookmark_params

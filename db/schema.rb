@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_31_175822) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_01_000000) do
   create_table "bookmarks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
@@ -18,7 +18,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_31_175822) do
     t.string "name"
     t.datetime "updated_at", null: false
     t.string "url"
+    t.integer "user_id", null: false
     t.index ["folder_id"], name: "index_bookmarks_on_folder_id"
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
   end
 
   create_table "folders", force: :cascade do |t|
@@ -27,7 +29,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_31_175822) do
     t.string "name"
     t.integer "parent_id"
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
     t.index ["parent_id"], name: "index_folders_on_parent_id"
+    t.index ["user_id"], name: "index_folders_on_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -48,6 +52,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_31_175822) do
   end
 
   add_foreign_key "bookmarks", "folders"
+  add_foreign_key "bookmarks", "users"
   add_foreign_key "folders", "folders", column: "parent_id"
+  add_foreign_key "folders", "users"
   add_foreign_key "sessions", "users"
 end
