@@ -7,8 +7,8 @@ class FoldersController < ApplicationController
   end
 
   def show
-    @folders = Current.user.folders.children
-    @bookmarks = Current.user.bookmarks.where folder_id: @folder.id
+    @folders = @folder.children
+    @bookmarks = @folder.bookmarks
   end
 
   def new
