@@ -7,9 +7,9 @@ class Folder < ApplicationRecord
 
   def get_path
     if self.parent
-      self.get_path + [ self.name ]
+      self.parent.get_path + [ self ]
     else
-      [ self.name ]
+      [ self ]
     end
   end
 end

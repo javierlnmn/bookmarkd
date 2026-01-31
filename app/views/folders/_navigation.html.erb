@@ -1,1 +1,19 @@
-<% @folder.get_path %>
+<div class="flex items-center gap-2">
+  <%= link_to folders_path, class: "text-sm font-medium text-zinc-600 hover:text-zinc-300 transition-colors" do %>
+    Index
+  <% end %>
+  <% if @folder %>
+    <% path = @folder.get_path %>
+    <% unless path.length <= 0 %>
+      <span class="text-zinc-700">/</span>
+    <% end %>
+    <% path.each do |folder| %>
+      <%= link_to folder_path(folder), class: "text-sm font-medium text-zinc-600 hover:text-zinc-300 transition-colors" do %>
+        <%= folder.name %>
+      <% end %>
+      <% unless folder === path.last %>
+        <span class="text-zinc-700">/</span>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
