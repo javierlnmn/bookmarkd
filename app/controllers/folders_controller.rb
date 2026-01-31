@@ -12,12 +12,12 @@ class FoldersController < ApplicationController
   end
 
   def new
-    @folder = Current.user.folders.new(parent_id: params[:folder_id])
+    @folder = Folder.new(parent_id: params[:folder_id])
     render :new, layout: "modal"
   end
 
   def create
-    @folder = Folder.new folder_params
+    @folder = Current.user.folders.new folder_params
 
     if @folder.save()
       respond_to do |format|
