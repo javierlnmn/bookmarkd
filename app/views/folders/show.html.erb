@@ -1,7 +1,7 @@
 <div class="max-w-6xl w-11/12 mx-auto flex flex-col gap-4">
   <%= render "folders/page_header",
       title: @folder.name,
-      subtitle: "Organize and access your favorite links inside the folder",
+      subtitle: @folder.description,
       bookmark_path: new_folder_bookmark_path(@folder),
       folder_path: new_folder_folder_path(@folder) %>
 
