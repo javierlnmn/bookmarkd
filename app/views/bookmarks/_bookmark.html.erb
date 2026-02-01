@@ -5,12 +5,16 @@
         <h3 class="font-bold text-zinc-100 truncate group-hover:text-orange-400 transition-colors">
           <%= bookmark.name %>
         </h3>
-        <div class="flex items-center gap-1 relative">
-          <p class="text-xs font-medium text-zinc-500 truncate">
-            <%= bookmark.description || 'No description' %>
+        <div class="flex items-end gap-1 relative">
+          <p class="text-xs font-medium text-zinc-500 whitespace-nowrap truncate leading-tight">
+            <% if bookmark.description.blank? %>
+              No description
+            <% else %>
+              <%= bookmark.description %>
+            <% end %>
           </p>
-          <% if bookmark.description %>
-            <div data-controller="dropdown" class="inline-block align-middle group/info">
+          <% unless bookmark.description.blank? %>
+            <div data-controller="dropdown" class="flex flex-col justify-center group/info">
               <button data-action="dropdown#toggle" data-dropdown-target="button" >
                 <svg class="w-4 h-4 text-zinc-500 group-hover/info:text-orange-400 transition-colors duration-200 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Information">
                   <circle cx="12" cy="12" r="10" stroke-width="2"/>
