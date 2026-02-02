@@ -4,9 +4,20 @@
       <div class="flex-1 min-w-0">
         <%= link_to folder_path(folder), class: "block group" do %>
           <h3 class="font-bold text-zinc-100 group-hover:text-blue-400 transition-colors flex items-center gap-2">
-            <svg class="size-5 min-w-5 self-start text-zinc-500 group-hover:text-blue-400 transition-colors" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
-            </svg>
+            <% if folder.is_public? %>
+              <svg class="size-5 min-w-5 text-blue-600 group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" title="Public folder">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+                <path d="M3.6 9h16.8" />
+                <path d="M3.6 15h16.8" />
+                <path d="M11.5 3a17 17 0 0 0 0 18" />
+                <path d="M12.5 3a17 17 0 0 1 0 18" />
+              </svg>
+            <% else %>
+              <svg class="size-5 min-w-5 self-start text-zinc-500 group-hover:text-blue-400 transition-colors" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
+              </svg>
+            <% end %>
             <%= folder.name %>
           </h3>
           <p class="text-xs font-medium text-zinc-500 truncate mt-1">
