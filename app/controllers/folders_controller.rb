@@ -1,5 +1,6 @@
 class FoldersController < ApplicationController
   before_action :set_folder, only: %i[ show edit update destroy ]
+  allow_unauthenticated_access only: %i[ show ]
 
   def index
     @folders = Current.user.folders.where parent_id: nil
@@ -49,7 +50,7 @@ class FoldersController < ApplicationController
 
   private
     def set_folder
-      @folder = Current.user.folders.find(params[:id])
+      @folder = Folder.find(params[:id])
     end
 
     def folder_params

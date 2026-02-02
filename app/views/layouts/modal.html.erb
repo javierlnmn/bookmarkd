@@ -13,12 +13,14 @@
           </div>
 
           <div class="text-zinc-300">
-            <%= yield %>
+            <%= content_for?(:modal_content) ? yield(:modal_content) : yield %>
           </div>
 
           <div class="flex justify-end items-center gap-2 mt-4">
-            <%= button_tag 'Cancel', type: 'button', class: 'cursor-pointer px-4 py-2 text-zinc-500 hover:text-zinc-300 transition-colors text-sm font-semibold',
-                data: { action: 'modal#close' } %>
+            <% unless content_for?(:hide_modal_cancel) %>
+              <%= button_tag 'Cancel', type: 'button', class: 'cursor-pointer px-4 py-2 text-zinc-500 hover:text-zinc-300 transition-colors text-sm font-semibold',
+                  data: { action: 'modal#close' } %>
+            <% end %>
             <%= yield :modal_footer %>
           </div>  
         </div>  
