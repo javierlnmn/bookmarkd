@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_01_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_02_162359) do
   create_table "bookmarks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
@@ -26,6 +26,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_01_000000) do
   create_table "folders", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
+    t.boolean "is_public", default: false
     t.string "name"
     t.integer "parent_id"
     t.datetime "updated_at", null: false

@@ -8,7 +8,13 @@ class FoldersController < ApplicationController
   end
 
   def show
+    require_authentication unless @folder.is_public?
+
     @folders = @folder.children
+    if Current.user&.id != @folder.user_id
+      @folders = @folders.where(is_public: true)
+    end
+
     @bookmarks = @folder.bookmarks
   end
 
@@ -20,7 +26,7 @@ class FoldersController < ApplicationController
   def create
     @folder = Current.user.folders.new folder_params
 
-    if @folder.save()
+    if @folder.save
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to folders_path }

@@ -22,7 +22,7 @@
   <%= form_with url: session_url, class: "space-y-4" do |form| %>
     <div class="space-y-1.5">
       <%= form.label :email_address, "Email", class: "block text-[10px] font-bold uppercase tracking-widest text-zinc-600 ml-1" %>
-      <%= form.email_field :email_address,
+      <%= form.text_field :email_address,
           required: true,
           autofocus: true,
           autocomplete: "username",
