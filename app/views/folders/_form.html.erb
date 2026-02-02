@@ -28,6 +28,11 @@
         class: "w-full bg-zinc-800/80 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:ring-2 focus:ring-orange-500/10 focus:border-orange-500/40 transition-all min-h-[110px]" %>
   </div>
 
+  <div class="flex flex-row items-center gap-3">
+    <%= form.checkbox :is_public, class: "checkbox-orange" %>
+    <%= form.label :is_public, class: "text-sm font-medium text-zinc-300 cursor-pointer" %>
+  </div>
+
   <% content_for :modal_footer do %>
     <%= form.submit "Save Folder",
       form: 'folder-form-modal',

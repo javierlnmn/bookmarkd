@@ -16,3 +16,26 @@
     font-weight: 400;
     font-style: normal;
 }
+
+input.checkbox-orange {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 1px solid rgb(82 82 91);
+    border-radius: 0.5rem;
+    background-color: rgb(39 39 42 / 0.8);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: border-color 0.15s, background-color 0.15s;
+}
+input.checkbox-orange:checked {
+    background-color: rgb(234 88 12);
+    border-color: rgb(234 88 12);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+}
+input.checkbox-orange:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgb(234 88 12 / 0.4);
+}

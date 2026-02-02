@@ -60,6 +60,6 @@ class FoldersController < ApplicationController
     end
 
     def folder_params
-      params.expect(folder: [ :name, :description, :url, :parent_id ])
+      params.expect(folder: [ :name, :description, :url, :parent_id, :is_public ])
     end
 end
