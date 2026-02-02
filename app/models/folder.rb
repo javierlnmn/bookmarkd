@@ -9,7 +9,11 @@ class Folder < ApplicationRecord
 
   def get_path
     if self.parent
-      self.parent.get_path + [ self ]
+      if self.parent.is_public or (!Current.user.nil? and Current.user.id == self.user_id)
+        self.parent.get_path + [ self ]
+      else
+        [ self ]
+      end
     else
       [ self ]
     end

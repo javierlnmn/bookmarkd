@@ -9,12 +9,15 @@
           <span class="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-400">Bookmarkd</span>
         </div>
         
-        <% if authenticated? %>
         <nav class="flex items-center gap-6">
+        <% if authenticated? %>
           <a href="/" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Home</a>
           <%= button_to "Log out", session_path, method: :delete, class: "text-sm font-medium text-zinc-400 hover:text-white transition-colors" if authenticated? %>
-        </nav>
+          <p class="text-sm text-orange-400"><%= Current.user.email_address %></p>
+        <% else %>
+          <%= link_to new_session_path, class: 'text-sm font-medium text-zinc-400 hover:text-white transition-colors' do %>Log in<% end %>
         <% end %>
+        </nav>
       </div>
     </header>
 

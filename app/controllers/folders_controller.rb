@@ -1,5 +1,6 @@
 class FoldersController < ApplicationController
   before_action :set_folder, only: %i[ show edit update destroy ]
+  before_action :check_folder_owner, only: %i[ edit update destroy ]
   allow_unauthenticated_access only: %i[ show ]
 
   def index
@@ -8,11 +9,20 @@ class FoldersController < ApplicationController
   end
 
   def show
-    require_authentication unless @folder.is_public?
+    if cookies[:session_id]
+      require_authentication
+    end
 
-    @folders = @folder.children
-    if Current.user&.id != @folder.user_id
-      @folders = @folders.where(is_public: true)
+    if !Current.user.nil? and Current.user.id == @folder.user.id
+      @folders = @folder.children
+    elsif @folder.is_public?
+      @folders = @folder.children.where(is_public: true)
+    else
+      if Current.user.nil?
+        redirect_to new_session_path
+      else
+        redirect_to folders_path
+      end
     end
 
     @bookmarks = @folder.bookmarks
@@ -61,5 +71,9 @@ class FoldersController < ApplicationController
 
     def folder_params
       params.expect(folder: [ :name, :description, :url, :parent_id, :is_public ])
+    end
+
+    def check_folder_owner
+      head :forbidden unless @folder.user_id == Current.user.id
     end
 end
