@@ -65,12 +65,12 @@ class FoldersController < ApplicationController
   end
 
   private
-    def set_folder
-      @folder = Folder.find(params[:id])
-    end
-
     def folder_params
       params.expect(folder: [ :name, :description, :url, :parent_id, :is_public ])
+    end
+
+    def set_folder
+      @folder = Folder.find(params[:id])
     end
 
     def check_folder_owner

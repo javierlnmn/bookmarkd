@@ -1,5 +1,6 @@
 class BookmarksController < ApplicationController
   before_action :set_bookmark, only: %i[ edit update destroy ]
+  before_action :check_bookmark_owner, only: %i[ edit update destroy ]
 
   def new
     @bookmark = Bookmark.new(folder_id: params[:folder_id])
@@ -38,11 +39,15 @@ class BookmarksController < ApplicationController
   end
 
   private
+    def bookmark_params
+      params.expect(bookmark: [ :name, :description, :url, :folder_id ])
+    end
+
     def set_bookmark
       @bookmark = Current.user.bookmarks.find(params[:id])
     end
 
-    def bookmark_params
-      params.expect(bookmark: [ :name, :description, :url, :folder_id ])
+    def check_bookmark_owner
+      head :forbidden unless @bookmark.user_id == Current.user.id
     end
 end
