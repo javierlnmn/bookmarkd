@@ -1,26 +1,25 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 import { coloris, init } from "@melloware/coloris";
 
 export default class extends Controller {
   connect() {
     init();
     coloris({
-      themeMode: 'dark',
+      themeMode: "dark",
       swatches: [
-        'DarkSlateGray',
-        '#2a9d8f',
-        '#e9c46a',
-        'coral',
-        'rgb(231, 111, 81)',
-        'Crimson',
-        '#023e8a',
-        '#0077b6',
-        'hsl(194, 100%, 39%)',
-        '#00b4d8',
-        '#48cae4'
+        "#f04848", // red
+        "#f472b6", // rose
+        "#fb923c", // orange
+        "#facc15", // amber
+        "#4ade80", // green
+        "#2dd4bf", // teal
+        "#22d3ee", // cyan
+        "#60a5fa", // blue
+        "#818cf8", // violet
+        "#b0b8c4", // slate
       ],
       swatchesOnly: true,
-      el: "#folder_name",
+      el: "#colorpicker",
     });
   }
 }
