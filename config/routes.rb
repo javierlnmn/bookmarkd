@@ -20,5 +20,7 @@ Rails.application.routes.draw do
   resources :folders, only: [ :index, :show, :new, :create, :edit, :update, :destroy ]
   resources :bookmarks, only: [ :new, :create, :edit, :update, :destroy ]
 
+  resources :tags, only: [ :index ]
+
   root to: redirect("folders")
 end

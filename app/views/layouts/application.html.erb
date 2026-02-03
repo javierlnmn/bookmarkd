@@ -13,6 +13,9 @@
           <nav class="hidden md:flex items-center gap-6">
             <% if authenticated? %>
               <a href="/" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Home</a>
+              <%= link_to tags_path, data: { turbo_frame: 'modal' }, class: "text-sm font-medium text-zinc-400 hover:text-white transition-colors" do %>
+                Tags
+              <% end %>
               <%= button_to "Log out", session_path, method: :delete, class: "text-sm font-medium text-zinc-400 hover:text-white transition-colors" %>
               <p class="text-sm text-orange-400"><%= Current.user.email_address %></p>
             <% else %>
