@@ -7,7 +7,7 @@
           open: response.message&.start_with?('Unprocessable'),
           data: { controller: 'modal' }
       ) do %>
-        <div class="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl shadow-2xl w-full max-w-sm m-4 transform duration-300 scale-100 opacity-100 shadow-orange-500/5">
+        <div class="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl shadow-2xl w-full m-4 transform duration-300 scale-100 opacity-100 shadow-orange-500/5 <%= content_for?(:modal_size) ? yield(:modal_size) : 'max-w-sm' %>">
           <div class="mb-2">
             <%= yield :modal_header %>
           </div>
