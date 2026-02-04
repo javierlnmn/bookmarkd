@@ -42,7 +42,11 @@ class BookmarksController < ApplicationController
     @bookmark = Current.user.bookmarks.find params[:id]
     @tag = Current.user.tags.find params[:tag_id]
 
-    @bookmark.tags<< @tag
+    if @bookmark.tags.exists? @tag.id
+      head :bad_request
+    else
+      @bookmark.tags<< @tag
+    end
 
     respond_to do |format|
       format.turbo_stream
