@@ -38,6 +38,20 @@ class BookmarksController < ApplicationController
     redirect_to folder || folders_path
   end
 
+  def tag
+    @bookmark = Current.user.bookmarks.find params[:id]
+    @tag = Current.user.tags.find params[:tag_id]
+
+    @bookmark.tags<< @tag
+
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
+  def remove_tag
+  end
+
   private
     def bookmark_params
       params.expect(bookmark: [ :name, :description, :url, :folder_id ])

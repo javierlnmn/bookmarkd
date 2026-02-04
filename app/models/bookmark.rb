@@ -1,7 +1,7 @@
 class Bookmark < ApplicationRecord
   belongs_to :folder, optional: true
   belongs_to :user
-  has_and_belongs_to_many :tag
+  has_and_belongs_to_many :tags
 
   validates :name, presence: true
   validates :url, presence: true, format: { with: URI.regexp }

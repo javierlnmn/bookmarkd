@@ -42,7 +42,26 @@
     </div>
 
     <div class="mt-auto flex items-center gap-2 mt-auto">
-      <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 bg-zinc-800/30 px-2.5 py-1 rounded-lg border border-zinc-800/50">Unsorted</span>
+      <div data-controller="dropdown" class="flex flex-wrap gap-2 relative">
+        <% bookmark.tags.each do |tag| %>
+          <%= render "tags/bookmark_tag", bookmark: bookmark, tag: tag %>
+        <% end %>
+        <button type="button" id="<%= dom_id bookmark %>-tags-button" data-action="click->dropdown#toggle" class="size-7 text-base font-bold uppercase tracking-widest text-zinc-400 hover:text-zinc-300 transition-colors bg-zinc-800/30 rounded-lg border border-zinc-800/50 flex items-center justify-center cursor-pointer">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+        </button>
+
+        <% if Current.user.present? %>
+          <div data-dropdown-target="list" class="hidden absolute left-0 top-full mt-1 min-w-[140px] py-1 bg-zinc-800 border border-zinc-700 rounded-xl shadow-xl z-50">
+            <div class="flex flex-col gap-2 p-2 max-h-82 overflow-scroll">
+              <% Current.user.tags.order(:name).each do |tag| %>
+                <%= button_to tag_bookmark_path(bookmark, tag), method: :post do %>
+                  <%= render "tags/simple_tag", tag: tag %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
 
       <div class="ml-auto flex gap-1 items-center">
         <% if Current.user.present? && (!@folder || @folder.user_id == Current.user.id) %>
