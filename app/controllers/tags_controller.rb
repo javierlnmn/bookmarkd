@@ -4,13 +4,21 @@ class TagsController < ApplicationController
 
   def index
     @tags = Current.user.tags.order(:name)
+    @tag = Tag.new
+
     render :index, layout: "modal"
   end
 
-  def new
-  end
-
   def create
+    @tag = Current.user.tags.new(tag_params)
+
+    if @tag.save
+      respond_to do | format |
+        format.turbo_stream
+      end
+    else
+      render :index, status: :unprocessable_entity, layout: "modal"
+    end
   end
 
   def edit
@@ -24,7 +32,7 @@ class TagsController < ApplicationController
 
   private
     def tag_params
-      params.expect(tag: [ :name, :description, :url, :folder_id ])
+      params.expect(tag: [ :name, :color ])
     end
 
     def set_tag
