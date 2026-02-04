@@ -7,16 +7,16 @@ export default class extends Controller {
     coloris({
       themeMode: "dark",
       swatches: [
-        "#f04848", // red
-        "#f472b6", // rose
-        "#fb923c", // orange
-        "#facc15", // amber
-        "#4ade80", // green
-        "#2dd4bf", // teal
-        "#22d3ee", // cyan
-        "#60a5fa", // blue
-        "#818cf8", // violet
-        "#b0b8c4", // slate
+        "#f06060", // red
+        "#f58abb", // rose
+        "#fca55c", // orange
+        "#fcd34d", // amber
+        "#6ee89e", // green
+        "#5dd9c9", // teal
+        "#5ddbed", // cyan
+        "#7eb8fc", // blue
+        "#9da4f9", // violet
+        "#c4cad4", // slate
       ],
       swatchesOnly: true,
       el: "#colorpicker",
