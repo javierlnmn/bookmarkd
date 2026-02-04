@@ -22,9 +22,15 @@ class TagsController < ApplicationController
   end
 
   def edit
+    render :edit, layout: "modal"
   end
 
   def update
+    if @tag.update tag_params
+      redirect_to tags_path
+    else
+      render :index, status: :unprocessable_entity, layout: "modal"
+    end
   end
 
   def destroy
