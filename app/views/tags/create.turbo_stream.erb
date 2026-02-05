@@ -1,2 +1,3 @@
 <%= turbo_stream.append "tags-container", @tag %>
+<%= turbo_stream.append_all "[data-tag-choices-container='true']", @tag %>
 <%= turbo_stream.remove "tags-empty" %>
