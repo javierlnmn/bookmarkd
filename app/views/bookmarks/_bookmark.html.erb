@@ -52,7 +52,7 @@
 
         <% if Current.user.present? %>
           <div data-dropdown-target="list" class="hidden absolute left-0 top-full mt-1 min-w-[140px] py-1 bg-zinc-800 border border-zinc-700 rounded-xl shadow-xl z-50">
-            <div class="flex flex-col gap-2 p-2 max-h-82 overflow-scroll" data-tag-choices-container="true">
+            <div class="flex flex-col gap-2 p-2 max-h-70 overflow-scroll" data-tag-choices-container="true">
               <% Current.user.tags.order(:name).each do |tag| %>
                 <%= button_to tag_bookmark_path(bookmark, tag), method: :post do %>
                   <%= render "tags/simple_tag", tag: tag %>
