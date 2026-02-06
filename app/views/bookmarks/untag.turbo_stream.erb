@@ -1,0 +1,2 @@
+<%= turbo_stream.remove "#{dom_id(@bookmark)}-#{dom_id(@tag)}-bookmark_tag" %>
+<%= turbo_stream.replace_all "##{dom_id(@bookmark)}-tags_container ##{dom_id(@tag)}-simple_tag", partial: "tags/simple_tag", locals: { tag: @tag, applied: false } %>

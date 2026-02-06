@@ -1,6 +1,6 @@
 <div id="<%= dom_id bookmark %>-<%= dom_id tag %>-bookmark_tag" class="h-7 flex items-center gap-1.5 py-px px-2 rounded-lg transition-all hover:opacity-90 w-fit shrink-0" style="<%= tag_container_style(tag) %>">
   <span class="text-xs font-semibold truncate" style="<%= tag_text_style(tag) %>"><%= tag.name %></span>
-  <%= button_to untag_bookmark_path(tag, bookmark_id: bookmark.id), method: :delete, data: { turbo_stream: true }, class: "text-zinc-400 hover:text-red-400 hover:bg-red-500/20 rounded-lg transition-colors cursor-pointer", title: "Remove tag" do %>
+  <%= button_to untag_bookmark_path(bookmark, tag), method: :delete, data: { turbo_stream: true }, class: "text-zinc-400 hover:text-red-400 hover:bg-red-500/20 rounded-lg transition-colors cursor-pointer", title: "Remove tag" do %>
     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
   <% end %>
 </div>

@@ -9,11 +9,11 @@
 
     <div class="space-y-1">
       <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 ml-1 mb-2">Your tags</p>
-      <div id="tags-container" class="flex flex-wrap gap-2 overflow-y-auto pr-1 -mr-1 max-h-96">
+      <div id="tags-form_container" class="flex flex-wrap gap-2 overflow-y-auto pr-1 -mr-1 max-h-96">
         <% if @tags.any? %>
             <%= render partial: 'form_tag', collection: @tags, as: :tag %>
         <% else %>
-          <p id="tags-empty" class="w-full text-sm text-zinc-500 py-4 text-center rounded-xl bg-zinc-800/20 border-2 border-zinc-800/50 border-dashed">
+          <p id="tags-form_empty" class="w-full text-sm text-zinc-500 py-4 text-center rounded-xl bg-zinc-800/20 border-2 border-zinc-800/50 border-dashed">
             No tags yet. Add one above.
           </p>
         <% end %>

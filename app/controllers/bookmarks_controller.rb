@@ -1,5 +1,5 @@
 class BookmarksController < ApplicationController
-  before_action :set_bookmark, only: %i[ edit update destroy ]
+  before_action :set_bookmark, only: %i[ edit update destroy tag untag ]
   before_action :check_bookmark_owner, only: %i[ edit update destroy ]
 
   def new
@@ -39,7 +39,6 @@ class BookmarksController < ApplicationController
   end
 
   def tag
-    @bookmark = Current.user.bookmarks.find params[:id]
     @tag = Current.user.tags.find params[:tag_id]
 
     if @bookmark.tags.exists? @tag.id
@@ -54,6 +53,15 @@ class BookmarksController < ApplicationController
   end
 
   def untag
+    @tag = Current.user.tags.find params[:tag_id]
+
+    if @bookmark.tags.include? @tag
+      @bookmark.tags.delete @tag
+    end
+
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 
   private

@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   resources :tags, only: [ :index, :create, :edit, :update, :destroy ]
 
   post "bookmark/:id/tag/:tag_id" => "bookmarks#tag", as: :tag_bookmark
-  delete "bookmark/untag/:tag" => "bookmarks#untag", as: :untag_bookmark
+  delete "bookmark/:id/untag/:tag_id" => "bookmarks#untag", as: :untag_bookmark
 
   root to: redirect("folders")
 end
