@@ -1,2 +1,2 @@
 <%= turbo_stream.before "#{dom_id(@bookmark)}-tags-button", partial: "tags/bookmark_tag", locals: { bookmark: @bookmark, tag: @tag } %>
-<%= turbo_stream.update "simple-#{dom_id(@bookmark)}_#{dom_id(@tag)}", partial: "tags/simple_tag", locals: { bookmark: @bookmark, tag: @tag } %>
+<%= turbo_stream.replace_all "##{dom_id(@bookmark)}-tags_container ##{dom_id(@tag)}-simple_tag", partial: "tags/simple_tag", locals: { tag: @tag, applied: true } %>
