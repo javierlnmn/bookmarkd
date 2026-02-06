@@ -55,7 +55,7 @@
             <div class="flex flex-col gap-2 p-2 max-h-70 overflow-scroll" data-tag-choices-container="true">
               <% Current.user.tags.order(:name).each do |tag| %>
                 <%= button_to tag_bookmark_path(bookmark, tag), method: :post do %>
-                  <%= render "tags/simple_tag", tag: tag %>
+                  <%= render "tags/simple_tag", tag: tag, bookmark: bookmark %>
                 <% end %>
               <% end %>
             </div>

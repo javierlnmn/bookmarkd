@@ -1,3 +1,3 @@
-<div class="h-7 inline-flex items-center py-px px-2 rounded-lg transition-all hover:opacity-90 w-fit shrink-0" style="<%= tag_container_style(tag) %>">
+<div id="simple-<%= dom_id(bookmark) %>_tag_<%= tag.id %>" class="h-7 inline-flex items-center py-px px-2 rounded-lg transition-all w-fit shrink-0 cursor-pointer <% if bookmark.tags.include? tag %>opacity-40 !cursor-default<% end %>" style="<%= tag_container_style(tag) %>">
   <span class="text-xs font-semibold truncate" style="<%= tag_text_style(tag) %>"><%= tag.name %></span>
 </div>

@@ -15,6 +15,7 @@ class TagsController < ApplicationController
     if @tag.save
       respond_to do | format |
         format.turbo_stream
+        format.html { redirect_to tags_path }
       end
     else
       render :index, status: :unprocessable_entity, layout: "modal"
@@ -35,7 +36,10 @@ class TagsController < ApplicationController
 
   def destroy
     @tag.destroy
-    redirect_to tags_path
+    respond_to do | format |
+      format.turbo_stream
+      format.html { redirect_to tags_path }
+    end
   end
 
   private
