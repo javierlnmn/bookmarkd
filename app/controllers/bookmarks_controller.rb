@@ -53,7 +53,7 @@ class BookmarksController < ApplicationController
     end
   end
 
-  def remove_tag
+  def untag
   end
 
   private
