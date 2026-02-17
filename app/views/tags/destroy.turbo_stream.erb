@@ -1,2 +1,4 @@
 <%= turbo_stream.remove_all "[id='#{dom_id(@tag)}-simple_tag-container']" %>
-<%= turbo_stream.remove_all "[id$='-#{dom_id(@tag)}-bookmark_tag']" %> 
+<%= turbo_stream.remove_all "[id$='#{dom_id(@tag)}-bookmark_tag']" %> 
+<%= turbo_stream.remove_all "[id$='#{dom_id(@tag)}-filter_tag']" %>
+<%= turbo_stream.remove_all "[id$='#{dom_id(@tag)}-form_tag']" %>

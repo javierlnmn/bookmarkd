@@ -1,0 +1,15 @@
+<label
+  id="<%= dom_id tag %>-filter_tag"
+  class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-zinc-700/50 cursor-pointer transition-colors"
+>
+  <input
+    type="checkbox"
+    data-bookmarks-filters-target="tag"
+    data-tag-name="<%= tag.name %>"
+    data-action="change->bookmarks-filters#tagsFilter"
+    class="checkbox-orange w-4 h-4 rounded border-zinc-600 bg-zinc-700 text-orange-500 focus:ring-orange-500/20 focus:ring-offset-0 cursor-pointer"
+  />
+  <span class="h-5 inline-flex items-center px-1.5 rounded text-xs font-semibold" style="<%= tag_container_style(tag) %>">
+    <span style="<%= tag_text_style(tag) %>"><%= tag.name %></span>
+  </span>
+</label>

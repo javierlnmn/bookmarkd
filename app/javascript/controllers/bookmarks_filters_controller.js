@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["searchbar", "bookmark", "folder"];
+  static targets = ["searchbar", "tag", "bookmark", "folder"];
 
   searchbar() {
     const value = this.searchbarTarget.value;
@@ -41,5 +41,44 @@ export default class extends Controller {
         fo.folderRef.classList.remove("hidden");
       }
     }
+  }
+
+  tagsFilter() {
+    const selectedTagNames = this.tagTargets
+      .filter((checkbox) => checkbox.checked)
+      .map((checkbox) => checkbox.dataset.tagName);
+
+    if (selectedTagNames.length <= 0) {
+      this.bookmarkTargets.forEach((bm) => bm.classList.remove("hidden"));
+      return;
+    }
+
+    const bookmarks = this.bookmarkTargets.map((bm) => ({
+      bookmarkRef: bm,
+      tags: [
+        ...bm
+          .querySelector("div.flex.flex-wrap.gap-2.relative")
+          .querySelectorAll('[id$="bookmark_tag"]'),
+      ].map(
+        (tagEl) =>
+          tagEl.querySelector("span.text-xs.font-semibold.truncate").innerText,
+      ),
+    }));
+
+    for (const bm of bookmarks) {
+      if (!bm.tags.some((tag) => selectedTagNames.includes(tag))) {
+        bm.bookmarkRef.classList.add("hidden");
+      } else {
+        bm.bookmarkRef.classList.remove("hidden");
+      }
+    }
+  }
+
+  tagsReset() {
+    this.tagTargets.forEach((tagCb) => {
+      tagCb.checked = false;
+    });
+
+    this.tagsFilter();
   }
 }

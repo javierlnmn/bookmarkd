@@ -14,7 +14,7 @@
     />
   </div>
 
-  <!-- <div class="relative flex justify-end" data-controller="dropdown">
+  <div class="relative flex justify-end" data-controller="dropdown">
     <button
       type="button"
       data-action="click->dropdown#toggle"
@@ -31,23 +31,20 @@
 
     <div data-dropdown-target="list" class="hidden absolute right-0 top-full mt-2 min-w-[200px] p-2 bg-zinc-800 border border-zinc-700 rounded-xl shadow-xl z-50">
       <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 px-2 mb-2">Select tags</p>
-      <div class="flex flex-col gap-1 max-h-48 overflow-y-auto">
+      <div id="tags-filter_container" class="flex flex-col gap-1 max-h-48 overflow-y-auto">
         <% if Current.user.present? %>
-          <% Current.user.tags.order(:name).each do |tag| %>
-            <label class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-zinc-700/50 cursor-pointer transition-colors">
-              <input type="checkbox" class="checkbox-orange w-4 h-4 rounded border-zinc-600 bg-zinc-700 text-orange-500 focus:ring-orange-500/20 focus:ring-offset-0 cursor-pointer" />
-              <span class="h-5 inline-flex items-center px-1.5 rounded text-xs font-semibold" style="<%= tag_container_style(tag) %>">
-                <span style="<%= tag_text_style(tag) %>"><%= tag.name %></span>
-              </span>
-            </label>
-          <% end %>
+          <%= render partial: "tags/filter_tag", collection: Current.user.tags, as: :tag %>
         <% end %>
       </div>
       <div class="border-t border-zinc-700 mt-2 pt-2">
-        <button type="button" class="w-full px-3 py-1.5 text-xs font-medium text-zinc-400 hover:text-zinc-100 hover:bg-zinc-700/50 rounded-lg transition-colors">
+        <button
+          type="button"
+          class="cursor-pointer w-full px-3 py-1.5 text-xs font-medium text-zinc-400 hover:text-zinc-100 hover:bg-zinc-700/50 rounded-lg transition-colors"
+          data-action="click->bookmarks-filters#tagsReset"
+        >
           Clear filters
         </button>
       </div>
     </div>
-  </div> -->
+  </div>
 </div>
