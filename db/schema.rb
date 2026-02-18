@@ -10,26 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_06_171012) do
-  create_table "active_admin_comments", force: :cascade do |t|
-    t.integer "author_id"
-    t.string "author_type"
-    t.text "body"
-    t.datetime "created_at", null: false
-    t.string "namespace"
-    t.integer "resource_id"
-    t.string "resource_type"
-    t.datetime "updated_at", null: false
-    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
-    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
-    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
-  end
-
+ActiveRecord::Schema[8.1].define(version: 2026_02_18_111307) do
   create_table "bookmarks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
     t.integer "folder_id"
     t.string "name"
+    t.string "thumbnail"
     t.datetime "updated_at", null: false
     t.string "url"
     t.integer "user_id", null: false

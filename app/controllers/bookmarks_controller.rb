@@ -10,6 +10,12 @@ class BookmarksController < ApplicationController
   def create
     @bookmark = Current.user.bookmarks.new(bookmark_params)
 
+    begin
+      thumbnail = LinkThumbnailer.generate(@bookmark.url)
+      @bookmark.thumbnail = thumbnail.images.first.src if thumbnail.images.any?
+    rescue LinkThumbnailer::Exceptions
+    end
+
     if @bookmark.save
       respond_to do |format|
         format.turbo_stream
