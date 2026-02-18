@@ -36,6 +36,10 @@
   <% content_for :modal_footer do %>
     <%= form.submit "Save Folder",
       form: 'folder-form-modal',
-      class: "cursor-pointer px-5 py-2 bg-orange-600 hover:bg-orange-500 text-zinc-950 text-sm font-bold rounded-xl transition-all active:scale-95 cursor-pointer shadow-lg shadow-white/5" %>
+      class: "cursor-pointer disabled:cursor-default disabled:opacity-50 px-5 py-2 bg-orange-600 hover:bg-orange-500 text-zinc-950 text-sm font-bold rounded-xl transition-all active:scale-95 cursor-pointer shadow-lg shadow-white/5 disabled:opacity-50 disabled:cursor-not-allowed",
+      data: {
+        turbo_submits_with: "Saving..."
+      }
+    %>
   <% end %>
 <% end %>
