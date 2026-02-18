@@ -10,13 +10,9 @@ class BookmarksController < ApplicationController
   def create
     @bookmark = Current.user.bookmarks.new(bookmark_params)
 
-    begin
-      thumbnail = LinkThumbnailer.generate(@bookmark.url)
-      @bookmark.thumbnail = thumbnail.images.first.src if thumbnail.images.any?
-    rescue LinkThumbnailer::Exceptions
-    end
-
     if @bookmark.save
+      @bookmark.update_thumbnail
+
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to folders_path }
@@ -32,6 +28,8 @@ class BookmarksController < ApplicationController
 
   def update
     if @bookmark.update(bookmark_params)
+      @bookmark.update_thumbnail
+
       redirect_to @bookmark.folder || folders_path
     else
       render :edit, status: :unprocessable_entity

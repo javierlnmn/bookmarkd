@@ -12,4 +12,13 @@ class Bookmark < ApplicationRecord
       errors.add(:base, "Please, use a valid folder") unless folder.user_id == user_id
     end
   end
+
+  def update_thumbnail
+    begin
+      thumbnail = LinkThumbnailer.generate(self.url)
+      self.thumbnail = thumbnail.images.first.src if thumbnail.images.any?
+      self.save
+    rescue LinkThumbnailer::Exceptions
+    end
+  end
 end
