@@ -1,3 +1,14 @@
-<div id="<%= dom_id(tag) %>-simple_tag" class="h-7 inline-flex items-center py-px px-2 rounded-lg transition-all w-fit shrink-0 cursor-pointer <% if local_assigns[:applied] %>opacity-40 !cursor-default<% end %>" style="<%= tag_container_style(tag) %>">
-  <span class="text-xs font-semibold truncate" style="<%= tag_text_style(tag) %>"><%= tag.name %></span>
-</div>
+<% pill_classes = "h-7 inline-flex items-center py-px px-2 rounded-lg transition-all w-fit shrink-0 cursor-pointer #{'opacity-40 !cursor-default' if local_assigns[:tag_being_used]}" %>
+<% if local_assigns[:bookmark] %>
+  <div id="<%= dom_id(tag) %>-simple_tag-container">
+    <%= button_to tag_bookmark_path(bookmark, tag), method: :post do %>
+      <div id="<%= dom_id(tag) %>-simple_tag" class="<%= pill_classes %>" style="<%= tag_container_style(tag) %>">
+        <span class="text-xs font-semibold truncate" style="<%= tag_text_style(tag) %>"><%= tag.name %></span>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div id="<%= dom_id(tag) %>-simple_tag" class="<%= pill_classes %>" style="<%= tag_container_style(tag) %>">
+    <span class="text-xs font-semibold truncate" style="<%= tag_text_style(tag) %>"><%= tag.name %></span>
+  </div>
+<% end %>
