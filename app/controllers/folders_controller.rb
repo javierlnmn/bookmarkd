@@ -1,6 +1,6 @@
 class FoldersController < ApplicationController
-  before_action :set_folder, only: %i[ show edit update destroy ]
-  before_action :check_folder_owner, only: %i[ edit update destroy ]
+  before_action :set_folder, only: %i[ show edit update destroy move move_form ]
+  before_action :check_folder_owner, only: %i[ edit update destroy move move_form ]
   allow_unauthenticated_access only: %i[ show ]
 
   def index
@@ -62,6 +62,41 @@ class FoldersController < ApplicationController
     parent = @folder.parent
     @folder.destroy
     redirect_to parent || folders_path
+  end
+
+  def move_form
+    if params[:browse_id]
+      @browse_folder = Current.user.folders.find(params[:browse_id])
+      @folders = @browse_folder.children.where.not(id: @folder.id)
+      @at_root = false
+    elsif params[:at_root]
+      @browse_folder = nil
+      @folders = Current.user.folders.where(parent_id: nil).where.not(id: @folder.id)
+      @at_root = true
+    elsif @folder.parent_id
+      @browse_folder = Current.user.folders.find(@folder.parent_id)
+      @folders = @browse_folder.children.where.not(id: @folder.id)
+      @at_root = false
+    else
+      @browse_folder = nil
+      @folders = Current.user.folders.where(parent_id: nil).where.not(id: @folder.id)
+      @at_root = false
+    end
+
+    render :move, layout: "modal"
+  end
+
+  def move
+    if params[:parent_id]
+      new_folder = Folder.find(params[:parent_id])
+      head :forbidden unless new_folder.user_id == Current.user.id
+      @folder.update(parent_id: new_folder.id)
+      redirect_to new_folder
+    else
+      @folder.update(parent_id: nil)
+      redirect_to folders_path
+    end
+
   end
 
   private
