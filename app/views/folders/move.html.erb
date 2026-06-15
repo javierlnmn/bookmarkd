@@ -26,7 +26,9 @@
   <%= form_with url: move_folder_path(@folder), method: :put, id: "move-folder-form",
       data: { controller: "radio-submit", action: "turbo:submit-end->modal#close change->radio-submit#update" } do |form| %>
     <% if @browse_folder.nil? %>
-      <%= button_to move_folder_path(@folder), method: :put,
+      <%= link_to move_folder_path(@folder),
+          method: :put,
+          data: { turbo_method: :put },
           class: "w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-zinc-600 text-zinc-400 hover:text-zinc-100 transition-all cursor-pointer" do %>
         <svg class="size-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
