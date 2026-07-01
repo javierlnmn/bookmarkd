@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :folders do
     resources :folders, only: [ :new, :create ]
     resources :bookmarks, only: [ :new, :create ]
+    resources :folder_collaborations, only: [ :new, :create, :destroy ], path: "collaborators"
   end
 
   resources :folders, only: [ :index, :show, :new, :create, :edit, :update, :destroy ]

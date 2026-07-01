@@ -1,0 +1,38 @@
+<%= form_with(
+    model: @folder_collaboration,
+    url: folder_folder_collaborations_path(@folder),
+    id: 'folder-collaboration-form-modal',
+    data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" },
+    class: "space-y-4"
+  ) do |form| %>
+  <% if @folder_collaboration.errors.any? %>
+    <div class="flex items-start gap-3 rounded-xl border border-red-500/30 bg-red-500/10 text-red-200 px-4 py-3 text-sm" id="alert">
+      <svg class="w-4 h-4 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M12 6.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>
+      <span><%= @folder_collaboration.errors.full_messages.first %></span>
+    </div>
+  <% end %>
+
+  <% if notice = flash[:notice] %>
+    <div class="flex items-start gap-3 rounded-xl border border-zinc-700 bg-zinc-800/60 text-zinc-300 px-4 py-3 text-sm" id="notice">
+      <svg class="w-4 h-4 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M12 6.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>
+      <span><%= notice %></span>
+    </div>
+  <% end %>
+
+  <div class="space-y-1.5">
+    <%= form.label :email_address, "Collaborator email", class: "block text-[10px] font-bold uppercase tracking-widest text-zinc-600 ml-1" %>
+    <%= form.email_field :email_address,
+        placeholder: "someone@example.com",
+        class: "w-full bg-zinc-800/80 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:ring-2 focus:ring-orange-500/10 focus:border-orange-500/40 transition-all" %>
+  </div>
+
+  <% content_for :modal_footer do %>
+    <%= form.submit "Add Collaborator",
+      form: 'folder-collaboration-form-modal',
+      class: "cursor-pointer disabled:cursor-default disabled:opacity-50 px-5 py-2 bg-orange-600 hover:bg-orange-500 text-zinc-950 text-sm font-bold rounded-xl transition-all active:scale-95 cursor-pointer shadow-lg shadow-white/5 disabled:opacity-50 disabled:cursor-not-allowed",
+      data: {
+        turbo_submits_with: "Adding..."
+      }
+    %>
+  <% end %>
+<% end %>

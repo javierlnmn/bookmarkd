@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_10_162144) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_01_120000) do
   create_table "bookmarks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
@@ -29,6 +29,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_10_162144) do
     t.integer "tag_id"
     t.index ["bookmark_id"], name: "index_bookmarks_tags_on_bookmark_id"
     t.index ["tag_id"], name: "index_bookmarks_tags_on_tag_id"
+  end
+
+  create_table "folder_collaborations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "folder_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["folder_id", "user_id"], name: "index_folder_collaborations_on_folder_id_and_user_id", unique: true
+    t.index ["folder_id"], name: "index_folder_collaborations_on_folder_id"
+    t.index ["user_id"], name: "index_folder_collaborations_on_user_id"
   end
 
   create_table "folders", force: :cascade do |t|
@@ -71,6 +81,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_10_162144) do
 
   add_foreign_key "bookmarks", "folders"
   add_foreign_key "bookmarks", "users"
+  add_foreign_key "folder_collaborations", "folders"
+  add_foreign_key "folder_collaborations", "users"
   add_foreign_key "folders", "folders", column: "parent_id"
   add_foreign_key "folders", "users"
   add_foreign_key "sessions", "users"

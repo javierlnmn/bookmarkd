@@ -1,6 +1,6 @@
 class BookmarksController < ApplicationController
   before_action :set_bookmark, only: %i[ edit update destroy tag untag ]
-  before_action :check_bookmark_owner, only: %i[ edit update destroy ]
+  before_action :check_bookmark_editable, only: %i[ edit update destroy tag untag ]
 
   def new
     @bookmark = Bookmark.new(folder_id: params[:folder_id])
@@ -8,7 +8,15 @@ class BookmarksController < ApplicationController
   end
 
   def create
-    @bookmark = Current.user.bookmarks.new(bookmark_params)
+    owner = Current.user
+
+    if bookmark_params[:folder_id].present?
+      folder = Folder.find(bookmark_params[:folder_id])
+      return head :forbidden unless folder.editable_by?(Current.user)
+      owner = folder.user
+    end
+
+    @bookmark = owner.bookmarks.new(bookmark_params)
 
     if @bookmark.save
       @bookmark.update_thumbnail
@@ -27,6 +35,11 @@ class BookmarksController < ApplicationController
   end
 
   def update
+    if bookmark_params[:folder_id].present? && bookmark_params[:folder_id].to_i != @bookmark.folder_id
+      new_folder = Folder.find(bookmark_params[:folder_id])
+      return head :forbidden unless new_folder.editable_by?(Current.user)
+    end
+
     if @bookmark.update(bookmark_params)
       @bookmark.update_thumbnail
 
@@ -74,10 +87,10 @@ class BookmarksController < ApplicationController
     end
 
     def set_bookmark
-      @bookmark = Current.user.bookmarks.find(params[:id])
+      @bookmark = Bookmark.find(params[:id])
     end
 
-    def check_bookmark_owner
-      head :forbidden unless @bookmark.user_id == Current.user.id
+    def check_bookmark_editable
+      head :forbidden unless @bookmark.editable_by?(Current.user)
     end
 end

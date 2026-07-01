@@ -1,0 +1,2 @@
+<%= turbo_stream.append "#{dom_id(@folder)}-collaborators_container", partial: "folder_collaborations/collaborator", locals: { folder_collaboration: @folder_collaboration } %>
+<%= turbo_stream.remove "#{dom_id(@folder)}-collaborators_empty" %>

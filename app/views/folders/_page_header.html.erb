@@ -21,8 +21,8 @@
 
   <div class="flex gap-2 items-center">
     <div data-controller="dropdown" class="relative">
-      <% if !@folder || (!Current.user.nil? && @folder && @folder.user_id == Current.user.id) %>
-        <button data-action="dropdown#toggle" data-dropdown-target="button" class="min-w-40 inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-zinc-100 hover:bg-white text-zinc-950 font-bold rounded-xl transition-all active:scale-95 shadow-lg shadow-white/5 cursor-pointer">
+      <% if !@folder || @folder.editable_by?(Current.user) %>
+        <button data-action="dropdown#toggle" data-dropdown-target="button" class="h-11 min-w-40 inline-flex items-center justify-center gap-2 px-5 bg-zinc-100 hover:bg-white text-zinc-950 font-bold rounded-xl transition-all active:scale-95 shadow-lg shadow-white/5 cursor-pointer">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           Add New
         </button>
@@ -44,5 +44,16 @@
         <% end %>
       </div>
     </div>
+
+    <% if @folder && @folder.owned_by?(Current.user) %>
+      <%= link_to new_folder_folder_collaboration_path(@folder), data: { turbo_frame: 'modal' }, title: "Add collaborator", class: "h-11 w-11 inline-flex items-center justify-center bg-zinc-800/50 hover:bg-zinc-700 text-zinc-400 hover:text-white rounded-xl transition-all active:scale-90" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M9 7a4 4 0 1 0 0 8a4 4 0 0 0 0 -8z"/>
+          <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>
+          <path d="M16 11h6m-3 -3v6"/>
+        </svg>
+      <% end %>
+    <% end %>
   </div>
 </div>

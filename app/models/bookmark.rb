@@ -13,6 +13,11 @@ class Bookmark < ApplicationRecord
     end
   end
 
+  def editable_by?(user)
+    return false if user.nil?
+    folder ? folder.editable_by?(user) : user.id == user_id
+  end
+
   def update_thumbnail
     begin
       thumbnail = LinkThumbnailer.generate(self.url)
