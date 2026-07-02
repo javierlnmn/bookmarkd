@@ -34,12 +34,8 @@ class Folder < ApplicationRecord
   end
 
   def get_path
-    if self.parent
-      if self.parent.is_public or editable_by?(Current.user)
-        self.parent.get_path + [ self ]
-      else
-        [ self ]
-      end
+    if parent && (parent.is_public? || parent.editable_by?(Current.user))
+      parent.get_path + [ self ]
     else
       [ self ]
     end

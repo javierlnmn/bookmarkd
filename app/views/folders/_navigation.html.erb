@@ -1,10 +1,19 @@
 <div class="flex items-center gap-2">
-  <%= link_to folders_path, class: "text-sm font-medium text-zinc-600 hover:text-zinc-300 transition-colors" do %>
-    Home
+  <%
+    is_collaborator_view = @folder.present? && @folder.editable_by?(Current.user) && !@folder.owned_by?(Current.user)
+    boundary = is_collaborator_view ? @folder.collaboration_boundary_for(Current.user) : nil
+  %>
+  <% if is_collaborator_view %>
+    <span class="text-sm font-medium text-orange-500"><%= boundary.user.email_address %></span>
+    <span class="text-zinc-700 text-sm">&gt;</span>
+  <% else %>
+    <%= link_to folders_path, class: "text-sm font-medium text-zinc-600 hover:text-zinc-300 transition-colors" do %>
+      Home
+    <% end %>
   <% end %>
   <% if @folder %>
     <% path = @folder.get_path %>
-    <% unless path.length <= 0 %>
+    <% unless is_collaborator_view || path.length <= 0 %>
       <span class="text-zinc-700 text-sm">/</span>
     <% end %>
     <% path.each do |folder| %>

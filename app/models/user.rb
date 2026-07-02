@@ -8,4 +8,9 @@ class User < ApplicationRecord
   has_many :collaborating_folders, through: :folder_collaborations, source: :folder
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
+
+  def editable_bookmarks
+    collaborated_folder_ids = collaborating_folders.flat_map { |folder| folder.self_and_descendants.map(&:id) }
+    Bookmark.where(user_id: id).or(Bookmark.where(folder_id: collaborated_folder_ids))
+  end
 end

@@ -1,0 +1,11 @@
+<button type="button" id="<%= dom_id bookmark %>-tags-button" data-action="click->dropdown#toggle" class="size-7 text-base font-bold uppercase tracking-widest text-zinc-400 hover:text-zinc-300 transition-colors bg-zinc-800/30 rounded-lg border border-zinc-800/50 flex items-center justify-center cursor-pointer">
+  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+</button>
+
+<div data-dropdown-target="list" class="hidden absolute left-0 top-full mt-1 min-w-[140px] py-1 bg-zinc-800 border border-zinc-700 rounded-xl shadow-xl z-50">
+  <div id="<%= dom_id bookmark %>-tags_container" class="flex flex-col gap-2 p-2 max-h-70 overflow-scroll" data-tag-choices-container="true">
+    <% Current.user.tags.order(:name).each do |tag| %>
+      <%= render "tags/simple_tag", bookmark: bookmark, tag: tag, tag_being_used: bookmark.tags.include?(tag) %>
+    <% end %>
+  </div>
+</div>

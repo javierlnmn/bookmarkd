@@ -1,6 +1,6 @@
 <%= turbo_stream.append "tags-form_container", object: @tag, as: :tag, partial: "tags/form_tag" %>
 <%= turbo_stream.append "tags-filter_container", object: @tag, as: :tag, partial: "tags/filter_tag" %>
-<% Current.user.bookmarks.each do |bookmark| %>
+<% Current.user.editable_bookmarks.each do |bookmark| %>
   <%= turbo_stream.append "#{dom_id(bookmark)}-tags_container", partial: "tags/simple_tag", locals: { bookmark: bookmark, tag: @tag, tag_being_used: bookmark.tags.include?(@tag) } %>
 <% end %>
 <%= turbo_stream.remove "tags-form_empty" %>
