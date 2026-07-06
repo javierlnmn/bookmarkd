@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   resources :folders, only: [ :index, :show, :new, :create, :edit, :update, :destroy ]
   resources :bookmarks, only: [ :new, :create, :edit, :update, :destroy ]
 
-  resources :tags, only: [ :index, :create, :edit, :update, :destroy ]
+  resources :tags, only: [ :create, :edit, :update, :destroy ]
 
   post "bookmark/:id/tag/:tag_id" => "bookmarks#tag", as: :tag_bookmark
   delete "bookmark/:id/untag/:tag_id" => "bookmarks#untag", as: :untag_bookmark

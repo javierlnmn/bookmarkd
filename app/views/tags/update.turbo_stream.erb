@@ -1,0 +1,2 @@
+<%= turbo_stream.replace "#{dom_id(@tag)}-form_tag", object: @tag, as: :tag, partial: "tags/form_tag" %>
+<%= turbo_stream.update "modal", "" %>

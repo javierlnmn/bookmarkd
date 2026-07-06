@@ -1,8 +1,0 @@
-<% content_for :modal_size do %>max-w-2xl max-h-[85vh] overflow-y-auto<% end %>
-<% content_for :modal_header do %>
-  <h2 class="text-lg font-bold text-zinc-100">Tags</h2>
-<% end %>
-
-<% content_for :modal_content do %>
-  <%= render "tags_manager", tag: @tag, tags: @tags, scrollable: true %>
-<% end %>
