@@ -4,7 +4,7 @@
   model: tag,
   id: "tags-form",
   data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" },
-  class: "flex flex-wrap items-end gap-3"
+  class: "flex flex-wrap items-end gap-3 max-w-xl"
 ) do |form| %>
   <% if form.object.errors.any? %>
     <div class="flex items-start gap-3 rounded-xl border border-red-500/30 bg-red-500/10 text-red-200 px-4 py-3 text-sm" id="alert">
