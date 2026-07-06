@@ -4,8 +4,12 @@
 
 <div data-dropdown-target="list" class="hidden absolute left-0 top-full mt-1 min-w-[140px] py-1 bg-zinc-800 border border-zinc-700 rounded-xl shadow-xl z-50">
   <div id="<%= dom_id bookmark %>-tags_container" class="flex flex-col gap-2 p-2 max-h-70 overflow-scroll" data-tag-choices-container="true">
-    <% Current.user.tags.order(:name).each do |tag| %>
+    <% tags = Current.user.tags %>
+    <% tags.order(:name).each do |tag| %>
       <%= render "tags/simple_tag", bookmark: bookmark, tag: tag, tag_being_used: bookmark.tags.include?(tag) %>
+    <% end %>
+    <% if tags.none? %>
+      <%= render "tags/no_tags_message_bookmark", bookmark: bookmark %>
     <% end %>
   </div>
 </div>

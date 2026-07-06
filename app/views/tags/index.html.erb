@@ -13,9 +13,7 @@
         <% if @tags.any? %>
             <%= render partial: 'form_tag', collection: @tags, as: :tag %>
         <% else %>
-          <p id="tags-form_empty" class="w-full text-sm text-zinc-500 py-4 text-center rounded-xl bg-zinc-800/20 border-2 border-zinc-800/50 border-dashed">
-            No tags yet. Add one above.
-          </p>
+          <%= render "no_tags_message_form" %>
         <% end %>
       </div>
     </div>

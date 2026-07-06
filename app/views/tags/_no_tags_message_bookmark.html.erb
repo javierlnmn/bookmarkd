@@ -1,0 +1,4 @@
+<p id="<%= dom_id(bookmark) %>-no-tags" class="text-xs text-zinc-500 py-1">
+  There are currently no tags.
+  <%= link_to "Add tag", tags_path, data: { turbo_frame: "modal" }, class: "text-zinc-400 underline hover:text-zinc-300 transition-colors" %>
+</p>
