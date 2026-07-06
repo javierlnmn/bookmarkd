@@ -29,6 +29,13 @@ class Folder < ApplicationRecord
     parent&.collaboration_boundary_for(user)
   end
 
+  # Returns true if the folder (or ancestor) has at least one collaborator
+  def collaborative_scope?
+    return true if self.collaborators.exists?
+    return false if not self.parent
+    parent&.collaborative_scope?
+  end
+
   def self_and_descendants
     [ self ] + children.flat_map(&:self_and_descendants)
   end
