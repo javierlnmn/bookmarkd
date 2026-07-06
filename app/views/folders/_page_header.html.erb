@@ -14,7 +14,7 @@
         </svg>
       <% end %>
       <% if @folder && @folder.owned_by?(Current.user) && @folder.collaborative_scope? %>
-        <svg class="size-8 min-w-8 text-zinc-600 hover:text-zinc-400 transition-colors" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" title="Collaborative folder">
+        <svg class="size-8 min-w-8 text-zinc-600" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" title="Collaborative folder">
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
           <path d="M5 7a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
           <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
