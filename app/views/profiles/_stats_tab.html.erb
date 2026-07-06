@@ -1,4 +1,4 @@
-<div data-tabs-target="panel" data-tab="stats" data-controller="delete-dialog" class="space-y-10 <%= 'hidden' if @active_tab == 'session' %>">
+<div data-tabs-target="panel" data-tab="stats" data-controller="delete-dialog" class="space-y-10 <%= 'hidden' unless @active_tab == 'stats' %>">
   <section class="space-y-4">
     <h2 class="text-lg font-bold text-white">Overview</h2>
     <div class="grid grid-cols-2 gap-6">

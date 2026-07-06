@@ -1,0 +1,10 @@
+<div data-tabs-target="panel" data-tab="tags" class="space-y-4 <%= 'hidden' unless @active_tab == 'tags' %>">
+  <div>
+    <h2 class="text-lg font-bold text-white">Tags</h2>
+    <p class="text-sm text-zinc-500 mt-1">Create and manage your tags.</p>
+  </div>
+
+  <div class="max-w-xl">
+    <%= render "tags/tags_manager", tag: @tag, tags: @tags %>
+  </div>
+</div>

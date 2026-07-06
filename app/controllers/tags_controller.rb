@@ -13,12 +13,12 @@ class TagsController < ApplicationController
     @tag = Current.user.tags.new(tag_params)
 
     if @tag.save
-      respond_to do | format |
+      respond_to do |format|
         format.turbo_stream
-        format.html { redirect_to tags_path }
+        format.html { redirect_to tags_redirect_path }
       end
     else
-      render :index, status: :unprocessable_entity, layout: "modal"
+      render_tags_form status: :unprocessable_entity
     end
   end
 
@@ -30,15 +30,15 @@ class TagsController < ApplicationController
     if @tag.update tag_params
       redirect_to tags_path
     else
-      render :index, status: :unprocessable_entity, layout: "modal"
+      render_tags_form status: :unprocessable_entity
     end
   end
 
   def destroy
     @tag.destroy
-    respond_to do | format |
+    respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to tags_path }
+      format.html { redirect_to tags_redirect_path }
     end
   end
 
@@ -53,5 +53,25 @@ class TagsController < ApplicationController
 
     def check_tag_owner
       head :forbidden unless @tag.user_id == Current.user.id
+    end
+
+    def profile_context?
+      request.referer&.include?("/profile")
+    end
+
+    def tags_redirect_path
+      profile_context? ? profile_path(tab: "tags") : tags_path
+    end
+
+    def render_tags_form(**options)
+      @tags = Current.user.tags.order(:name)
+
+      if profile_context?
+        @user = Current.user
+        @active_tab = "tags"
+        render "profiles/show", **options
+      else
+        render :index, layout: "modal", **options
+      end
     end
 end

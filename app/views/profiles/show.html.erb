@@ -36,6 +36,15 @@
     <button
       type="button"
       data-tabs-target="tab"
+      data-tab="tags"
+      data-action="tabs#select"
+      class="pb-3 text-sm font-semibold border-b-2 transition-colors cursor-pointer"
+    >
+      Tags
+    </button>
+    <button
+      type="button"
+      data-tabs-target="tab"
       data-tab="session"
       data-action="tabs#select"
       class="pb-3 text-sm font-semibold border-b-2 transition-colors cursor-pointer"
@@ -45,5 +54,6 @@
   </nav>
 
   <%= render "stats_tab" %>
+  <%= render "tags_tab" %>
   <%= render "session_tab" %>
 </div>

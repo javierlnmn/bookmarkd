@@ -13,9 +13,6 @@
           <nav class="hidden md:flex items-center gap-6">
             <% if authenticated? %>
               <a href="/" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Bookmarks</a>
-              <%= link_to tags_path, data: { turbo_frame: 'modal' }, class: "text-sm font-medium text-zinc-400 hover:text-white transition-colors" do %>
-                Tags
-              <% end %>
               <%= link_to Current.user.email_address, profile_path, class: "text-sm text-orange-400 hover:text-orange-300 transition-colors" %>
             <% else %>
               <%= link_to new_session_path, class: 'text-sm font-medium text-zinc-400 hover:text-white transition-colors' do %>Log in<% end %>

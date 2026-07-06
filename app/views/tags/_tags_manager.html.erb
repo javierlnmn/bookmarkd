@@ -1,0 +1,17 @@
+<div class="space-y-4">
+  <%= render "tags/form", tag: tag %>
+
+  <div class="space-y-1">
+    <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 ml-1 mb-2">Your tags</p>
+    <div
+      id="tags-form_container"
+      class="flex flex-wrap gap-2<%= " overflow-y-auto pr-1 -mr-1 max-h-96" if local_assigns[:scrollable] %>"
+    >
+      <% if tags.any? %>
+        <%= render partial: "tags/form_tag", collection: tags, as: :tag %>
+      <% else %>
+        <%= render "tags/no_tags_message_form" %>
+      <% end %>
+    </div>
+  </div>
+</div>

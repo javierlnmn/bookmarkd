@@ -1,11 +1,15 @@
 class ProfilesController < ApplicationController
   def show
     @user = Current.user
-    @active_tab = params[:tab].presence_in(%w[ stats session ]) || "stats"
+    @tags = @user.tags.order(:name)
+    @tag = Tag.new
+    @active_tab = params[:tab].presence_in(%w[ stats session tags ]) || "stats"
   end
 
   def update
     @user = Current.user
+    @tags = @user.tags.order(:name)
+    @tag = Tag.new
     @active_tab = "session"
 
     unless @user.authenticate(password_params[:current_password].to_s)
