@@ -13,4 +13,14 @@ class User < ApplicationRecord
     collaborated_folder_ids = collaborating_folders.flat_map { |folder| folder.self_and_descendants.map(&:id) }
     Bookmark.where(user_id: id).or(Bookmark.where(folder_id: collaborated_folder_ids))
   end
+
+  def destroy_all_data!
+    transaction do
+      bookmarks.destroy_all
+      folders.update_all(parent_id: nil)
+      folders.destroy_all
+      tags.destroy_all
+      folder_collaborations.destroy_all
+    end
+  end
 end

@@ -1,0 +1,52 @@
+<div data-tabs-target="panel" data-tab="session" class="space-y-10 <%= 'hidden' unless @active_tab == 'session' %>">
+  <section class="space-y-4">
+    <div>
+      <h2 class="text-lg font-bold text-white">Change password</h2>
+      <p class="text-sm text-zinc-500 mt-1">Enter your current password, then choose a new one.</p>
+    </div>
+
+    <%= form_with url: profile_path, method: :patch, class: "space-y-4" do |form| %>
+      <div class="space-y-1.5">
+        <%= form.label :current_password, "Current password", class: "block text-[10px] font-bold uppercase tracking-widest text-zinc-600 ml-1" %>
+        <%= form.password_field :current_password,
+            required: true,
+            autocomplete: "current-password",
+            name: "profile[current_password]",
+            class: "w-full max-w-xl bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:ring-2 focus:ring-orange-500/10 focus:border-orange-500/40 transition-all" %>
+      </div>
+
+      <div class="space-y-1.5">
+        <%= form.label :password, "New password", class: "block text-[10px] font-bold uppercase tracking-widest text-zinc-600 ml-1" %>
+        <%= form.password_field :password,
+            required: true,
+            autocomplete: "new-password",
+            maxlength: 72,
+            name: "profile[password]",
+            class: "w-full max-w-xl bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:ring-2 focus:ring-orange-500/10 focus:border-orange-500/40 transition-all" %>
+      </div>
+
+      <div class="space-y-1.5">
+        <%= form.label :password_confirmation, "Confirm new password", class: "block text-[10px] font-bold uppercase tracking-widest text-zinc-600 ml-1" %>
+        <%= form.password_field :password_confirmation,
+            required: true,
+            autocomplete: "new-password",
+            maxlength: 72,
+            name: "profile[password_confirmation]",
+            class: "w-full max-w-xl bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:ring-2 focus:ring-orange-500/10 focus:border-orange-500/40 transition-all" %>
+      </div>
+
+      <% if @user.errors.any? %>
+        <p class="text-sm text-red-300"><%= @user.errors.full_messages.first %></p>
+      <% end %>
+
+      <%= form.submit "Update password",
+        class: "cursor-pointer px-5 py-3 bg-orange-600 hover:bg-orange-500 text-zinc-950 text-sm font-bold rounded-xl transition-all active:scale-95 shadow-lg shadow-orange-500/20" %>
+    <% end %>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-lg font-bold text-white">Log out</h2>
+    <p class="text-sm text-zinc-500">End your current session on this device.</p>
+    <%= button_to "Log out", session_path, method: :delete, class: "cursor-pointer px-5 py-3 bg-zinc-800/50 hover:bg-zinc-800 text-zinc-300 hover:text-white text-sm font-bold rounded-xl border border-zinc-800 transition-all active:scale-95" %>
+  </section>
+</div>
