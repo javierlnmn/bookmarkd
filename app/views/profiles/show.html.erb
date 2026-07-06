@@ -3,10 +3,12 @@
   data-controller="tabs"
   data-tabs-active-value="<%= @active_tab %>"
 >
-  <div class="space-y-2">
-    <p class="text-xs font-semibold tracking-[0.2em] text-orange-400 uppercase">Account</p>
-    <h1 class="text-3xl font-bold text-white">Profile</h1>
-    <p class="text-sm text-zinc-500"><%= @user.email_address %></p>
+  <div class="flex flex-col gap-4">
+    <p class="text-sm font-medium text-zinc-600">Account</p>
+    <div class="flex flex-col gap-2">
+      <h1 class="text-3xl font-bold text-white">Profile</h1>
+      <p class="text-sm text-zinc-500"><%= @user.email_address %></p>
+    </div>
   </div>
 
   <% if alert = flash[:alert] %>
