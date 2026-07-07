@@ -10,8 +10,19 @@ class User < ApplicationRecord
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
   def editable_bookmarks
-    collaborated_folder_ids = collaborating_folders.flat_map { |folder| folder.self_and_descendants.map(&:id) }
-    Bookmark.where(user_id: id).or(Bookmark.where(folder_id: collaborated_folder_ids))
+    Bookmark.where(user_id: id).or(Bookmark.where(folder_id: shared_folder_ids))
+  end
+
+  def shared_folder_ids
+    @shared_folder_ids ||= collaborating_folders.flat_map { |folder| folder.self_and_descendants.map(&:id) }.uniq
+  end
+
+  def shared_folders_count
+    shared_folder_ids.size
+  end
+
+  def shared_bookmarks_count
+    Bookmark.where(folder_id: shared_folder_ids).count
   end
 
   def destroy_all_data!
