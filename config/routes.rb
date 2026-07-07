@@ -22,13 +22,15 @@ Rails.application.routes.draw do
   end
 
   resources :folders, only: [ :index, :show, :new, :create, :edit, :update, :destroy ]
+
+  get "shared" => "folder_collaborations#index", as: :shared_folders
   resources :bookmarks, only: [ :new, :create, :edit, :update, :destroy ]
 
   resources :tags, only: [ :create, :edit, :update, :destroy ]
 
   post "bookmark/:id/tag/:tag_id" => "bookmarks#tag", as: :tag_bookmark
   delete "bookmark/:id/untag/:tag_id" => "bookmarks#untag", as: :untag_bookmark
-  
+
   get "folder/:id/move" => "folders#move_form", as: :move_folder_form
   put "folder/:id/move" => "folders#move", as: :move_folder
 

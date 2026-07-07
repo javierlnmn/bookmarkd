@@ -1,0 +1,32 @@
+<div class="max-w-6xl w-11/12 mx-auto flex flex-col gap-4">
+  <p class="text-zinc-700 text-sm">Other users' folders</p>
+  <div class="flex flex-col gap-2 mb-8">
+    <h1 class="text-3xl font-bold text-white flex items-center gap-2">
+      <%= render "folder_collaborations/collaborator_icon" %>
+      Shared with me
+    </h1>
+    <p class="text-zinc-500 text-sm font-medium">Folders other people have shared with you</p>
+  </div>
+
+  <% if @folders.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <% @folders.each do |folder| %>
+        <%= render "folder_collaborations/folder_shared", folder: folder %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="flex flex-col items-center justify-center text-center py-20 gap-3">
+      <div class="size-14 flex items-center justify-center rounded-2xl bg-zinc-800/40 border border-zinc-800 text-zinc-500">
+        <svg class="size-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M9 7a4 4 0 1 0 0 8a4 4 0 0 0 0 -8z"/>
+          <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/>
+        </svg>
+      </div>
+      <p class="text-zinc-300 font-semibold">Nothing shared with you yet</p>
+      <p class="text-zinc-500 text-sm max-w-sm">When someone adds you as a collaborator on a folder, it will show up here.</p>
+    </div>
+  <% end %>
+</div>

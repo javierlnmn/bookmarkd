@@ -23,7 +23,7 @@
 
   <div class="flex gap-2 items-center">
     <div data-controller="dropdown" class="relative">
-      <% if !@folder || @folder.editable_by?(Current.user) %>
+      <% if !@folder || @folder.is_owner_or_collaborator?(Current.user) %>
         <button data-action="dropdown#toggle" data-dropdown-target="button" class="h-11 min-w-40 inline-flex items-center justify-center gap-2 px-5 bg-zinc-100 hover:bg-white text-zinc-950 font-bold rounded-xl transition-all active:scale-95 shadow-lg shadow-white/5 cursor-pointer">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           Add New

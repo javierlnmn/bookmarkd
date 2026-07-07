@@ -1,6 +1,10 @@
 class FolderCollaborationsController < ApplicationController
-  before_action :set_folder
-  before_action :check_folder_owner
+  before_action :set_folder, except: :index
+  before_action :check_folder_owner, except: :index
+
+  def index
+    @folders = Current.user.collaborating_folders.includes(:user).order(:name)
+  end
 
   def new
     @folder_collaboration = FolderCollaboration.new(folder: @folder)

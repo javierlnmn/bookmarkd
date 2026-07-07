@@ -1,0 +1,54 @@
+<div
+  id="<%= dom_id folder %>"
+  class="group relative bg-zinc-900/40 hover:bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 p-5 rounded-2xl transition-all duration-300"
+>
+  <div class="h-full flex flex-col gap-4">
+    <div class="flex items-start justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <%= link_to folder_path(folder), class: "block group" do %>
+          <h3 class="font-bold text-zinc-100 group-hover:text-blue-400 transition-colors flex items-center gap-2">
+            <% if folder.is_public? %>
+              <svg class="size-5 min-w-5 text-blue-600 group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" title="Public folder">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+                <path d="M3.6 9h16.8" />
+                <path d="M3.6 15h16.8" />
+                <path d="M11.5 3a17 17 0 0 0 0 18" />
+                <path d="M12.5 3a17 17 0 0 1 0 18" />
+              </svg>
+            <% else %>
+              <svg class="size-5 min-w-5 self-start text-zinc-500 group-hover:text-blue-400 transition-colors" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
+              </svg>
+            <% end %>
+            <%= folder.name %>
+          </h3>
+          <p class="text-xs font-medium text-zinc-500 truncate mt-1">
+            <%= folder.description.presence || "No description" %>
+          </p>
+        <% end %>
+      </div>
+
+      <%= link_to folder_path(folder), class: "p-2.5 bg-zinc-800/50 text-zinc-400 hover:text-white hover:bg-zinc-700 rounded-xl transition-all active:scale-90" do %>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      <% end %>
+    </div>
+
+    <div class="mt-auto flex items-center gap-2">
+      <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 bg-zinc-800/30 px-2.5 py-1 rounded-lg border border-zinc-800/50">
+        <%= pluralize(folder.children.count + folder.bookmarks.count, 'item') %>
+      </span>
+
+      <span class="ml-auto inline-flex items-center gap-1 text-[10px] font-semibold text-zinc-500 truncate max-w-[60%]" title="Shared by <%= folder.user.email_address %>">
+        <svg class="size-3 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/>
+          <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>
+        </svg>
+        <span class="truncate"><%= folder.user.email_address %></span>
+      </span>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <div class="flex items-center gap-2">
   <%
-    is_collaborator_view = @folder.present? && @folder.editable_by?(Current.user) && !@folder.owned_by?(Current.user)
+    is_collaborator_view = @folder.present? && @folder.collaborator?(Current.user) && !@folder.owned_by?(Current.user)
     boundary = is_collaborator_view ? @folder.collaboration_boundary_for(Current.user) : nil
   %>
   <% if is_collaborator_view %>

@@ -13,7 +13,7 @@ class FoldersController < ApplicationController
       require_authentication
     end
 
-    if @folder.editable_by?(Current.user)
+    if @folder.is_owner_or_collaborator?(Current.user)
       @folders = @folder.children
     elsif @folder.is_public?
       @folders = @folder.children.where(is_public: true)
@@ -38,7 +38,7 @@ class FoldersController < ApplicationController
 
     if folder_params[:parent_id].present?
       parent = Folder.find(folder_params[:parent_id])
-      return head :forbidden unless parent.editable_by?(Current.user)
+      return head :forbidden unless parent.is_owner_or_collaborator?(Current.user)
       owner = parent.user
     end
 
@@ -61,7 +61,7 @@ class FoldersController < ApplicationController
   def update
     if folder_params[:parent_id].present? && folder_params[:parent_id].to_i != @folder.parent_id
       new_parent = @folder.user.folders.find(folder_params[:parent_id])
-      return head :forbidden unless new_parent.editable_by?(Current.user)
+      return head :forbidden unless new_parent.is_owner_or_collaborator?(Current.user)
     end
 
     if @folder.update(folder_params)
@@ -107,7 +107,7 @@ class FoldersController < ApplicationController
   def move
     if params[:parent_id]
       new_folder = @folder.user.folders.find(params[:parent_id])
-      return head :forbidden unless new_folder.editable_by?(Current.user)
+      return head :forbidden unless new_folder.is_owner_or_collaborator?(Current.user)
       return head :forbidden if @folder.self_and_descendants.map(&:id).include?(new_folder.id)
       @folder.update(parent_id: new_folder.id)
       redirect_to new_folder
@@ -116,7 +116,6 @@ class FoldersController < ApplicationController
       @folder.update(parent_id: nil)
       redirect_to folders_path
     end
-
   end
 
   private

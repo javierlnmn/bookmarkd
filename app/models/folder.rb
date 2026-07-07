@@ -19,6 +19,11 @@ class Folder < ApplicationRecord
   end
 
   def editable_by?(user)
+    return false if user.nil?
+    owned_by?(user) || !!parent&.collaborator?(user)
+  end
+
+  def is_owner_or_collaborator?(user)
     owned_by?(user) || collaborator?(user)
   end
 
@@ -52,7 +57,7 @@ class Folder < ApplicationRecord
   end
 
   def get_path
-    if parent && (parent.is_public? || parent.editable_by?(Current.user))
+    if parent && (parent.is_public? || parent.is_owner_or_collaborator?(Current.user))
       parent.get_path + [ self ]
     else
       [ self ]

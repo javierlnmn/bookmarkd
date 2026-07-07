@@ -12,7 +12,7 @@ class BookmarksController < ApplicationController
 
     if bookmark_params[:folder_id].present?
       folder = Folder.find(bookmark_params[:folder_id])
-      return head :forbidden unless folder.editable_by?(Current.user)
+      return head :forbidden unless folder.is_owner_or_collaborator?(Current.user)
       owner = folder.user
     end
 
@@ -37,7 +37,7 @@ class BookmarksController < ApplicationController
   def update
     if bookmark_params[:folder_id].present? && bookmark_params[:folder_id].to_i != @bookmark.folder_id
       new_folder = Folder.find(bookmark_params[:folder_id])
-      return head :forbidden unless new_folder.editable_by?(Current.user)
+      return head :forbidden unless new_folder.is_owner_or_collaborator?(Current.user)
     end
 
     if @bookmark.update(bookmark_params)

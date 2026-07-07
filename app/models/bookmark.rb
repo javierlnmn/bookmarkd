@@ -15,7 +15,7 @@ class Bookmark < ApplicationRecord
 
   def editable_by?(user)
     return false if user.nil?
-    folder ? folder.editable_by?(user) : user.id == user_id
+    folder ? folder.is_owner_or_collaborator?(user) : user.id == user_id
   end
 
   def update_thumbnail

@@ -13,6 +13,7 @@
           <nav class="hidden md:flex items-center gap-6">
             <% if authenticated? %>
               <a href="/" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Bookmarks</a>
+              <%= link_to "Shared with me", shared_folders_path, class: "text-sm font-medium text-zinc-400 hover:text-white transition-colors" %>
               <%= link_to Current.user.email_address, profile_path, class: "text-sm text-orange-400 hover:text-orange-300 transition-colors" %>
             <% else %>
               <%= link_to new_session_path, class: 'text-sm font-medium text-zinc-400 hover:text-white transition-colors' do %>Log in<% end %>
@@ -28,6 +29,7 @@
           <div data-dropdown-target="list" class="hidden md:hidden flex flex-col absolute top-full right-0 mt-2 w-56 bg-zinc-900 border border-zinc-800 rounded-xl shadow-xl z-50 py-2">
             <% if authenticated? %>
               <%= link_to "Bookmarks", "/", class: "px-4 py-2.5 text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors", data: { action: "click->dropdown#hide" } %>
+              <%= link_to "Shared with me", shared_folders_path, class: "px-4 py-2.5 text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors", data: { action: "click->dropdown#hide" } %>
               <%= link_to Current.user.email_address, profile_path, class: "px-4 py-2.5 text-sm text-orange-400 hover:text-orange-300 border-t border-zinc-800 mt-1 pt-2 transition-colors", data: { action: "click->dropdown#hide" } %>
             <% else %>
               <%= link_to "Log in", new_session_path, class: "px-4 py-2.5 text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors", data: { action: "click->dropdown#hide" } %>
