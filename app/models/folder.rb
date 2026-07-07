@@ -29,7 +29,18 @@ class Folder < ApplicationRecord
     parent&.collaboration_boundary_for(user)
   end
 
-  # Returns true if the folder (or ancestor) has at least one collaborator
+  def inherited_collaborators
+    direct_ids = collaborator_ids
+    inherited = {}
+    ancestor = parent
+    while ancestor
+      ancestor.collaborators.each { |user| inherited[user.id] ||= user }
+      ancestor = ancestor.parent
+    end
+    direct_ids.each { |id| inherited.delete(id) }
+    inherited.values
+  end
+
   def collaborative_scope?
     return true if self.collaborators.exists?
     return false if not self.parent
