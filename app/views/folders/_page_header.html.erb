@@ -2,7 +2,7 @@
 
 <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-8">
   <div class="flex flex-col gap-2">
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2" id="folder-title-container">
       <% if !@folder.nil? and @folder.is_public %>
         <svg class="size-8 min-w-8 text-blue-600 group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" title="Public folder">
           <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -14,15 +14,9 @@
         </svg>
       <% end %>
       <% if @folder && @folder.owned_by?(Current.user) && @folder.collaborative_scope? %>
-        <svg class="size-8 min-w-8 text-zinc-600" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" title="Collaborative folder">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M5 7a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-          <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-          <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
-        </svg>
+        <%= render partial: "folder_collaborations/collaborator_icon" %>
       <% end %>
-      <h1 class="text-3xl font-bold text-white"><%= title %></h1>
+      <h1 id="folder-title" class="text-3xl font-bold text-white"><%= title %></h1>
     </div>    
     <p class="text-zinc-500 text-sm font-medium"><%= subtitle %></p>
   </div>

@@ -1,4 +1,5 @@
 <%= turbo_stream.remove dom_id(@folder_collaboration) %>
 <% if @folder.folder_collaborations.none? %>
   <%= turbo_stream.append "#{dom_id(@folder)}-collaborators_container", partial: "folder_collaborations/empty", locals: { folder: @folder } %>
+  <%= turbo_stream.remove "collaborator-icon"%>
 <% end %>
