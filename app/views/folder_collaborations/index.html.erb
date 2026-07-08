@@ -17,13 +17,7 @@
   <% else %>
     <div class="flex flex-col items-center justify-center text-center py-20 gap-3">
       <div class="size-14 flex items-center justify-center rounded-2xl bg-zinc-800/40 border border-zinc-800 text-zinc-500">
-        <svg class="size-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-          <path d="M9 7a4 4 0 1 0 0 8a4 4 0 0 0 0 -8z"/>
-          <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>
-          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-          <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/>
-        </svg>
+        <%= render "folder_collaborations/collaborator_icon" %>
       </div>
       <p class="text-zinc-300 font-semibold">Nothing shared with you yet</p>
       <p class="text-zinc-500 text-sm max-w-sm">When someone adds you as a collaborator on a folder, it will show up here.</p>
