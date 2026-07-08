@@ -34,5 +34,8 @@ Rails.application.routes.draw do
   get "folder/:id/move" => "folders#move_form", as: :move_folder_form
   put "folder/:id/move" => "folders#move", as: :move_folder
 
+  get "bookmark/:id/move" => "bookmarks#move_form", as: :move_bookmark_form
+  put "bookmark/:id/move" => "bookmarks#move", as: :move_bookmark
+
   root to: redirect("folders")
 end

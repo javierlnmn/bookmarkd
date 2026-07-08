@@ -124,6 +124,15 @@
     </div>
     <% if can_edit %>
       <div class="mt-auto flex gap-1 items-center justify-end">
+        <%= link_to move_bookmark_form_path(bookmark), data: { turbo_frame: 'modal' }, class: "p-2 text-zinc-500 hover:text-zinc-100 hover:bg-zinc-800 rounded-xl transition-all active:scale-90 cursor-pointer", title: "Move to folder" do %>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 19H5a2 2 0 01-2-2V6a2 2 0 012-2h4l2 2h2"/>
+            <path d="M19 16l3-3-3-3"/>
+            <path d="M22 13H13"/>
+          </svg>
+        <% end %>
+
         <%= link_to edit_bookmark_path(bookmark), data: { turbo_frame: 'modal' }, class: "p-2 text-zinc-500 hover:text-zinc-100 hover:bg-zinc-800 rounded-xl transition-all active:scale-90 cursor-pointer", title: "Edit" do %>
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
         <% end %>

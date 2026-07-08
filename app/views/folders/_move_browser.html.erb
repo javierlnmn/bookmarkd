@@ -1,0 +1,86 @@
+<%#
+  Shared move modal used to relocate a folder or a bookmark.
+  Locals:
+    record        - the folder/bookmark being moved
+    form_prefix   - route prefix, e.g. "folder" or "bookmark"
+    field         - target param name submitted with the move, :parent_id or :folder_id
+    default_title - heading shown when browsing at the top level
+%>
+<% content_for :modal_header do %>
+  <div class="flex items-center gap-2">
+    <% unless @at_root %>
+      <%
+        back_path = if @browse_folder&.parent
+          send("move_#{form_prefix}_form_path", record, browse_id: @browse_folder.parent_id)
+        elsif @browse_folder
+          send("move_#{form_prefix}_form_path", record, at_root: true)
+        else
+          send("move_#{form_prefix}_form_path", record)
+        end
+      %>
+      <%= link_to back_path, class: "p-1 text-zinc-500 hover:text-zinc-300 rounded-lg hover:bg-zinc-800 transition-all" do %>
+        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 19l-7-7 7-7"/>
+        </svg>
+      <% end %>
+    <% end %>
+    <h2 class="text-lg font-bold text-zinc-100">
+      <%= @browse_folder ? @browse_folder.name : default_title %>
+    </h2>
+  </div>
+<% end %>
+
+<% content_for :modal_content do %>
+  <%= form_with url: send("move_#{form_prefix}_path", record), method: :put, id: "move-form",
+      data: { controller: "radio-submit", action: "turbo:submit-end->modal#close change->radio-submit#update" } do |form| %>
+    <% if @at_root && !@browse_is_self %>
+      <%
+        top_level_path = @browse_folder ? send("move_#{form_prefix}_path", record, field => @browse_folder.id) : send("move_#{form_prefix}_path", record)
+        top_level_label = @browse_folder ? "Move to \"#{@browse_folder.name}\"" : "Move to root"
+      %>
+      <%= link_to top_level_path,
+          method: :put,
+          data: { turbo_method: :put },
+          class: "w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-zinc-600 text-zinc-400 hover:text-zinc-100 transition-all cursor-pointer" do %>
+        <svg class="size-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+          <path d="M9 22V12h6v10"/>
+        </svg>
+        <span class="text-sm font-medium"><%= top_level_label %></span>
+      <% end %>
+      <div class="flex items-center gap-2 my-3">
+        <div class="flex-1 h-px bg-zinc-800"></div>
+        <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-600">or pick a folder</span>
+        <div class="flex-1 h-px bg-zinc-800"></div>
+      </div>
+    <% end %>
+    <div class="max-h-64 overflow-y-auto space-y-1 pr-1">
+      <% if @folders.any? %>
+        <% @folders.each do |folder| %>
+          <label class="flex items-center truncate gap-3 px-4 py-4 h-[54px] rounded-xl border border-zinc-800 hover:border-zinc-700 hover:bg-zinc-800/50 cursor-pointer transition-all has-[:checked]:border-orange-500/40 has-[:checked]:bg-orange-500/5">
+            <%= form.radio_button field, folder.id, class: "sr-only" %>
+            <svg class="size-4 shrink-0 text-zinc-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
+            </svg>
+            <span class="text-sm text-zinc-300 truncate flex-1"><%= folder.name %></span>
+            <% if folder.children.any? %>
+              <%= link_to send("move_#{form_prefix}_form_path", record, browse_id: folder.id),
+                  class: "p-[4px] text-zinc-600 hover:text-zinc-200 hover:bg-zinc-700/60 rounded-lg transition-all" do %>
+                <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 5l7 7-7 7"/>
+                </svg>
+              <% end %>
+            <% end %>
+          </label>
+        <% end %>
+      <% else %>
+        <p class="text-xs text-zinc-600">No folders to move to.</p>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+<% content_for :modal_footer do %>
+  <%= button_tag "Move", type: "submit", form: "move-form", disabled: true,
+      class: "cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed px-5 py-2 bg-orange-600 hover:bg-orange-500 text-zinc-950 text-sm font-bold rounded-xl transition-all active:scale-95 shadow-lg shadow-white/5" %>
+<% end %>

@@ -100,6 +100,7 @@ class FoldersController < ApplicationController
 
     @folders = (@browse_folder ? @browse_folder.children : allowed_folders.where(parent_id: nil)).where.not(id: excluded_ids)
     @at_root = @browse_folder&.id == @collaboration_boundary&.id
+    @browse_is_self = @browse_folder&.id == @folder.id
 
     render :move, layout: "modal"
   end

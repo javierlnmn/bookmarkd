@@ -13,9 +13,13 @@ class Bookmark < ApplicationRecord
     end
   end
 
+  def owned_by?(user)
+    user.present? && user.id == user_id
+  end
+
   def editable_by?(user)
     return false if user.nil?
-    folder ? folder.is_owner_or_collaborator?(user) : user.id == user_id
+    folder ? folder.is_owner_or_collaborator?(user) : owned_by?(user)
   end
 
   def update_thumbnail
