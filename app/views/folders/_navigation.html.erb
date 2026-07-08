@@ -1,28 +1,27 @@
-<div class="flex items-center gap-2">
+<div class="flex flex-wrap items-center gap-2">
   <%
     is_collaborator_view = @folder.present? && @folder.collaborator?(Current.user) && !@folder.owned_by?(Current.user)
     boundary = is_collaborator_view ? @folder.collaboration_boundary_for(Current.user) : nil
+    path = @folder ? @folder.get_path : []
   %>
-  <% if is_collaborator_view %>
-    <span class="text-sm font-medium text-orange-500"><%= boundary.user.email_address %></span>
-    <span class="text-zinc-700 text-sm">&gt;</span>
-  <% else %>
-    <%= link_to folders_path, class: "text-sm font-medium text-zinc-600 hover:text-zinc-300 transition-colors" do %>
-      Home
+
+  <span class="shrink-0 inline-flex items-center gap-2">
+    <% if is_collaborator_view %>
+      <span class="text-sm font-medium text-orange-500"><%= boundary.user.email_address %></span>
+    <% else %>
+      <%= link_to "Home", folders_path, class: "text-sm font-medium text-zinc-600 hover:text-zinc-300 transition-colors" %>
     <% end %>
-  <% end %>
-  <% if @folder %>
-    <% path = @folder.get_path %>
-    <% unless is_collaborator_view || path.length <= 0 %>
-      <span class="text-zinc-700 text-sm">/</span>
+    <% if path.any? %>
+      <span class="text-zinc-700 text-sm"><%= is_collaborator_view ? ">" : "/" %></span>
     <% end %>
-    <% path.each do |folder| %>
-      <%= link_to folder_path(folder), class: "text-sm font-medium text-zinc-600 hover:text-zinc-300 transition-colors" do %>
-        <%= folder.name %>
-      <% end %>
+  </span>
+
+  <% path.each do |folder| %>
+    <span class="shrink-0 inline-flex items-center gap-2">
+      <%= link_to folder.name, folder_path(folder), class: "text-sm font-medium text-zinc-600 hover:text-zinc-300 transition-colors" %>
       <% unless folder === path.last %>
         <span class="text-zinc-700 text-sm">/</span>
       <% end %>
-    <% end %>
+    </span>
   <% end %>
 </div>
