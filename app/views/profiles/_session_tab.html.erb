@@ -3,6 +3,7 @@
     <div>
       <h2 class="text-lg font-bold text-white">Change password</h2>
       <p class="text-sm text-zinc-500 mt-1">Enter your current password, then choose a new one.</p>
+      <p class="text-sm text-zinc-500 mt-1">Changing your password will <strong class="font-semibold text-zinc-300">log you out of all other sessions</strong>.</p>
     </div>
 
     <%= form_with url: profile_path, method: :patch, class: "space-y-4" do |form| %>
@@ -37,10 +38,6 @@
             name: "profile[password_confirmation]",
             class: "w-full max-w-xl bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:ring-2 focus:ring-orange-500/10 focus:border-orange-500/40 transition-all" %>
       </div>
-
-      <% if @user.errors.any? %>
-        <p class="text-sm text-red-300"><%= @user.errors.full_messages.first %></p>
-      <% end %>
 
       <%= form.submit "Update password",
         class: "cursor-pointer px-5 py-3 bg-orange-600 hover:bg-orange-500 text-zinc-950 text-sm font-bold rounded-xl transition-all active:scale-95 shadow-lg shadow-orange-500/20" %>

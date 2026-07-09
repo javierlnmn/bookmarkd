@@ -8,22 +8,20 @@ class ProfilesController < ApplicationController
 
   def update
     @user = Current.user
-    @tags = @user.tags.order(:name)
-    @tag = Tag.new
-    @active_tab = "session"
 
     unless @user.authenticate(password_params[:current_password].to_s)
-      flash.now[:alert] = "Current password is incorrect."
-      return render :show, status: :unprocessable_entity
+      redirect_to profile_path(tab: "session"), alert: "Current password is incorrect."
+      return
     end
 
     if @user.update(
       password: password_params[:password],
       password_confirmation: password_params[:password_confirmation]
     )
+      @user.sessions.where.not(id: Current.session.id).delete_all
       redirect_to profile_path(tab: "session"), notice: "Password updated."
     else
-      render :show, status: :unprocessable_entity
+      redirect_to profile_path(tab: "session"), alert: @user.errors.full_messages.first
     end
   end
 
